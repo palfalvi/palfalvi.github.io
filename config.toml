@@ -1,4 +1,4 @@
-baseurl = "https://palfalvi.github.io/"
+baseurl = "https://palfalvi.netlify.com/"
 title = "R for Biology"
 copyright = "&copy; 2017 Gergo Palfalvi"
 theme = "hugo-academic"
