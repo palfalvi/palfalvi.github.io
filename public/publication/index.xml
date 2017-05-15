@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Publications on R for Biology</title>
+    <link>/publication/index.xml</link>
+    <description>Recent content in Publications on R for Biology</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2017 Gergo Palfalvi</copyright>
+    <lastBuildDate>Sun, 01 Jan 2017 00:00:00 +0000</lastBuildDate>
+    <atom:link href="/publication/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Genome of the pitcher plant Cephalotus reveals genetic changes associated with carnivory</title>
+      <link>/publication/cephalotus_genome/</link>
+      <pubDate>Mon, 06 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/publication/cephalotus_genome/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

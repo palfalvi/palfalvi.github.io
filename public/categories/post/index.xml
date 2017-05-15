@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Post on R for Biology</title>
+    <link>/categories/post/index.xml</link>
+    <description>Recent content in Post on R for Biology</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2017 Gergo Palfalvi</copyright>
+    <atom:link href="/categories/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Starting with blogdown</title>
+      <link>/post/starting-with-blogdown/</link>
+      <pubDate>Tue, 07 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/post/starting-with-blogdown/</guid>
+      <description>&lt;!-- BLOGDOWN-HEAD --&gt;
+&lt;!-- /BLOGDOWN-HEAD --&gt;
+
+&lt;!-- BLOGDOWN-BODY-BEFORE --&gt;
+&lt;!-- /BLOGDOWN-BODY-BEFORE --&gt;
+&lt;p&gt;So it started… again. This is not my first attempt to create a blog for data science and R, but previously I was trying with &lt;a href=&#34;https://jekyllrb.com&#34;&gt;Jekyll pages&lt;/a&gt;. It looked very nice after the long struggle of setups, I was very happy with it. I used to post my R class presentations there for easy access to attendees.&lt;/p&gt;
+&lt;p&gt;There was only one very bothering thing, there was no possibility to use R markdown directly, I always had to transfer to .md files, dealing with static images and so. Since I use &lt;a href=&#34;https://www.rstudio.com&#34;&gt;RStudio&lt;/a&gt; continuously to my work, I decided to try &lt;a href=&#34;https://yihui.name&#34;&gt;Yihui Xie’s&lt;/a&gt; &lt;code&gt;blogdown&lt;/code&gt; package with Hugo. I have to say, the installation was very seamless, just a few lines of code in R and a little git and viola, it works.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;devtools::install_github(&amp;#39;rstudio/blogdown&amp;#39;)
+blogdown::install_hugo()
+blogdown::new_site()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Generally that’s all to initialize a blog. Of course there is much more to do, you have to choose your theme, configure the &lt;code&gt;config.toml&lt;/code&gt; file, creating a github repository (if you wish to use github pages) and so on. If you really interested to make your own blog with Hugo and Blogdown, I can recommend &lt;a href=&#34;https://proquestionasker.github.io/blog/Making_Site/&#34;&gt;this&lt;/a&gt; post from Amber Thomas, which was really helpful for me.&lt;/p&gt;
+&lt;p&gt;Also check &lt;a href=&#34;https://yihui.name&#34;&gt;Yihui Xie&lt;/a&gt; and his &lt;a href=&#34;https://github.com/yihui/&#34;&gt;github repos&lt;/a&gt;, like &lt;code&gt;knit&lt;/code&gt;, &lt;code&gt;bookdown&lt;/code&gt; and &lt;code&gt;xaringan&lt;/code&gt;. If you are documenting your research/analysis, making a book, presentation or a blog, these can be very handy. He also writes a &lt;a href=&#34;https://bookdown.org/yihui/blogdown/&#34;&gt;book on blogdown&lt;/a&gt;, however this is far from finished.&lt;/p&gt;
+&lt;p&gt;Also from now I would like to focus on more detailed data science workflows, especially used in biology, instead of starting from the the very basics of R. See you soon in the next posts!&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

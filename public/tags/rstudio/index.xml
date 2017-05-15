@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Rstudio on R for Biology</title>
+    <link>/tags/rstudio/index.xml</link>
+    <description>Recent content in Rstudio on R for Biology</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2017 Gergo Palfalvi</copyright>
+    <atom:link href="/tags/rstudio/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Shiny Website for Primer Documentation</title>
+      <link>/post/shiny-website-for-primer-documentation/</link>
+      <pubDate>Tue, 07 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/post/shiny-website-for-primer-documentation/</guid>
+      <description>&lt;script src=&#34;/rmarkdown-libs/htmlwidgets/htmlwidgets.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;/rmarkdown-libs/vis/vis.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;/rmarkdown-libs/vis/vis.min.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/visNetwork-binding/visNetwork.js&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;I am working in a relatively big molecular biology laboratory where sometimes the common stocks and orders documentation can be a hassle. Recently I ran into one of this problem and decided to change the way to maintain a documentation of our oligonucleotide storage.&lt;/p&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;p&gt;If you are not familiar with the term &lt;a href=&#34;https://en.wikipedia.org/wiki/Primer_(molecular_biology)&#34;&gt;&lt;em&gt;primer&lt;/em&gt;&lt;/a&gt; and &lt;a href=&#34;https://en.wikipedia.org/wiki/Oligonucleotide&#34;&gt;&lt;em&gt;oligonicleotide&lt;/em&gt;&lt;/a&gt;, start on Wikipedia.&lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;p&gt;Since we keep track every single ordered oligonucleotide this laboratory ordered, now there are more then 10.000 records. Until now they deployed to a shared Excel file on a common server. There was several problem with this method, let me highlight a few:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;You have to manually add the unique identifier for the tube (a number, indicating the location to be stored). It resulted duplicated, skipped and even mistyped IDs.&lt;/li&gt;
+&lt;li&gt;You have to write the sequence manually or with Copy-Paste.&lt;/li&gt;
+&lt;li&gt;You can write any silly abbreviation for your name. Also can cause unidentifiable authors or authors with several types of entry names.&lt;/li&gt;
+&lt;li&gt;If someone left it open on their machine, others cannot edit until it is not closed.&lt;/li&gt;
+&lt;li&gt;Difficult to run BLAST. If a lab already has 10.000+ primers, sometimes you just look up what you need instead of ordering new ones. &lt;a href=&#34;https://blast.ncbi.nlm.nih.gov/Blast.cgi&#34;&gt;BLAST&lt;/a&gt; can do this job, but it is not so convenient to update a local BLAST database from excel every time someone deploy some new records (a few times a day).&lt;/li&gt;
+&lt;li&gt;It is Excel.&lt;/li&gt;
+&lt;li&gt;Again. It is Excel. Anyone easily could delete a few lines or even the whole document. No authorized access for any type of editing.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Considering these, I decided to create a &lt;a href=&#34;http://shiny.rstudio.com&#34;&gt;Shiny&lt;/a&gt; webpage on our local server to automatically maintain and protect this database with some extra function and a highly user-friendly interface. I also would be able to distribute a backbone from this site on github if anyone has similar problems or just wants to use. Since this is a bigger project to put in one post and also some part is highly personalized to our laboratory, I will cover only some important parts, like some specific plotting and data processing, how to build up a shiny app within several posts.&lt;/p&gt;
+&lt;div id=&#34;the-basic-ideas-behind-the-webpage&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;The basic ideas behind the webpage&lt;/h2&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;p&gt;I would like to store the primer information in a database instead of a &lt;code&gt;.csv&lt;/code&gt; or &lt;code&gt;.xls&lt;/code&gt; file. My main candidates for this is &lt;a href=&#34;https://www.postgresql.org&#34;&gt;postgreSQL&lt;/a&gt; or &lt;a href=&#34;https://www.sqlite.org&#34;&gt;SQLite&lt;/a&gt;, but it could be changed freely later.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;I want an interface where people can deploy primers even by manually or uploading a file (which is usually provided by the company we order from). This also should auto generate the unique IDs for the tubes.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Ability to build a BLAST database from the database (probably through a &lt;code&gt;.fasta&lt;/code&gt; file). This also should be triggered every time when new records are submitted (e.g. by button press or by monitoring the database time stamp).&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Ability to access the server’s BLAST engine from R/Shiny and to process the output in real time.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;A view window for browsing among existing primers.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Following up on availability of the primer. If someone finished a tube, make it possible to indicate it with also a possible reordering option and connecting the unique IDs.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Overcome all of the cons mentioned above.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Here is a diagram (created with the &lt;a href=&#34;http://rich-iannone.github.io/DiagrammeR/&#34;&gt;DiagrammeR&lt;/a&gt; package) about the core ideas:&lt;/p&gt;
+&lt;div id=&#34;htmlwidget-c990278410b71d556446&#34; style=&#34;width:672px;height:480px;&#34; class=&#34;visNetwork html-widget&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;application/json&#34; data-for=&#34;htmlwidget-c990278410b71d556446&#34;&gt;{&#34;x&#34;:{&#34;nodes&#34;:{&#34;id&#34;:[1,2,3,4,5,6,7],&#34;group&#34;:[&#34;A&#34;,&#34;A&#34;,&#34;A&#34;,&#34;A&#34;,&#34;A&#34;,&#34;A&#34;,&#34;B&#34;],&#34;label&#34;:[&#34;Primer Data Table \n (postgreSQL/\nSQLite)&#34;,&#34;New primer input&#34;,&#34;Create .fasta&#34;,&#34;Update blast database&#34;,&#34;BLAST search input&#34;,&#34;BLAST search output&#34;,&#34;Update&#34;],&#34;shape&#34;:[&#34;database&#34;,&#34;ellipse&#34;,&#34;box&#34;,&#34;box&#34;,&#34;ellipse&#34;,&#34;ellipse&#34;,&#34;circle&#34;],&#34;style&#34;:[&#34;filled&#34;,&#34;filled&#34;,&#34;filled&#34;,&#34;filled&#34;,&#34;filled&#34;,&#34;filled&#34;,&#34;filled&#34;],&#34;color&#34;:[&#34;limegreen&#34;,&#34;orange&#34;,&#34;dodgerblue&#34;,&#34;dodgerblue&#34;,&#34;orange&#34;,&#34;orange&#34;,&#34;pink&#34;],&#34;font.size&#34;:[20,20,20,20,20,20,20],&#34;shadow.enabled&#34;:[true,true,true,true,true,true,true],&#34;shadow.size&#34;:[10,10,10,10,10,10,10],&#34;shadow...&#34;:[&#34;&#34;,&#34;&#34;,&#34;&#34;,&#34;&#34;,&#34;&#34;,&#34;&#34;,&#34;&#34;],&#34;shadow....1&#34;:[&#34;&#34;,&#34;&#34;,&#34;&#34;,&#34;&#34;,&#34;&#34;,&#34;&#34;,&#34;&#34;],&#34;shadow....2&#34;:[&#34;&#34;,&#34;&#34;,&#34;&#34;,&#34;&#34;,&#34;&#34;,&#34;&#34;,&#34;&#34;],&#34;shadow....3&#34;:[&#34;&#34;,&#34;&#34;,&#34;&#34;,&#34;&#34;,&#34;&#34;,&#34;&#34;,&#34;&#34;],&#34;shadow....4&#34;:[&#34;&#34;,&#34;&#34;,&#34;&#34;,&#34;&#34;,&#34;&#34;,&#34;&#34;,&#34;&#34;],&#34;smooth&#34;:[true,true,true,true,true,true,true],&#34;level&#34;:[1,4,2,2,4,4,3]},&#34;edges&#34;:{&#34;id&#34;:[1,2,3,4,5,6,7,8],&#34;from&#34;:[2,2,1,7,7,3,5,4],&#34;to&#34;:[1,7,3,3,4,4,4,6],&#34;label&#34;:[&#34;&#34;,&#34;&#34;,&#34;&#34;,&#34;&#34;,&#34;&#34;,&#34;&#34;,&#34;&#34;,&#34;&#34;]},&#34;nodesToDataframe&#34;:true,&#34;edgesToDataframe&#34;:true,&#34;options&#34;:{&#34;width&#34;:&#34;100%&#34;,&#34;height&#34;:&#34;100%&#34;,&#34;nodes&#34;:{&#34;shape&#34;:&#34;dot&#34;},&#34;manipulation&#34;:{&#34;enabled&#34;:false},&#34;edges&#34;:{&#34;arrows&#34;:{&#34;to&#34;:{&#34;enabled&#34;:true,&#34;scaleFactor&#34;:1}}},&#34;physics&#34;:{&#34;stabilization&#34;:{&#34;enabled&#34;:true,&#34;onlyDynamicEdges&#34;:false,&#34;fit&#34;:true}},&#34;layout&#34;:{&#34;improvedLayout&#34;:true,&#34;hierarchical&#34;:{&#34;enabled&#34;:true,&#34;levelSeparation&#34;:270,&#34;direction&#34;:&#34;LR&#34;,&#34;sortMethod&#34;:&#34;directed&#34;}}},&#34;groups&#34;:[&#34;A&#34;,&#34;B&#34;],&#34;width&#34;:null,&#34;height&#34;:null,&#34;idselection&#34;:{&#34;enabled&#34;:false},&#34;byselection&#34;:{&#34;enabled&#34;:false},&#34;main&#34;:null,&#34;submain&#34;:null,&#34;footer&#34;:null},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}&lt;/script&gt;
+&lt;/div&gt;
+&lt;div id=&#34;extra-functions&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Extra functions&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Create new primers using &lt;a href=&#34;http://primer3.ut.ee&#34;&gt;Primer3&lt;/a&gt; (and BLAST) in-app. For this, we have to manipulate the UNIX command line application from R. Luckily it is not so difficult.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Extending this possibility we can even search for gRNAs for our CRISPR experiments with non-model genomes we work with. And also just for keep everything nicely in one place.&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;In the next post I would like to show how to recreate an interactive graphical output from a BLAST search result, similar as you can see on the &lt;a href=&#34;https://blast.ncbi.nlm.nih.gov/Blast.cgi&#34;&gt;BLAST&lt;/a&gt; website after performing a search.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Starting with blogdown</title>
+      <link>/post/starting-with-blogdown/</link>
+      <pubDate>Tue, 07 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/post/starting-with-blogdown/</guid>
+      <description>&lt;!-- BLOGDOWN-HEAD --&gt;
+&lt;!-- /BLOGDOWN-HEAD --&gt;
+
+&lt;!-- BLOGDOWN-BODY-BEFORE --&gt;
+&lt;!-- /BLOGDOWN-BODY-BEFORE --&gt;
+&lt;p&gt;So it started… again. This is not my first attempt to create a blog for data science and R, but previously I was trying with &lt;a href=&#34;https://jekyllrb.com&#34;&gt;Jekyll pages&lt;/a&gt;. It looked very nice after the long struggle of setups, I was very happy with it. I used to post my R class presentations there for easy access to attendees.&lt;/p&gt;
+&lt;p&gt;There was only one very bothering thing, there was no possibility to use R markdown directly, I always had to transfer to .md files, dealing with static images and so. Since I use &lt;a href=&#34;https://www.rstudio.com&#34;&gt;RStudio&lt;/a&gt; continuously to my work, I decided to try &lt;a href=&#34;https://yihui.name&#34;&gt;Yihui Xie’s&lt;/a&gt; &lt;code&gt;blogdown&lt;/code&gt; package with Hugo. I have to say, the installation was very seamless, just a few lines of code in R and a little git and viola, it works.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;devtools::install_github(&amp;#39;rstudio/blogdown&amp;#39;)
+blogdown::install_hugo()
+blogdown::new_site()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Generally that’s all to initialize a blog. Of course there is much more to do, you have to choose your theme, configure the &lt;code&gt;config.toml&lt;/code&gt; file, creating a github repository (if you wish to use github pages) and so on. If you really interested to make your own blog with Hugo and Blogdown, I can recommend &lt;a href=&#34;https://proquestionasker.github.io/blog/Making_Site/&#34;&gt;this&lt;/a&gt; post from Amber Thomas, which was really helpful for me.&lt;/p&gt;
+&lt;p&gt;Also check &lt;a href=&#34;https://yihui.name&#34;&gt;Yihui Xie&lt;/a&gt; and his &lt;a href=&#34;https://github.com/yihui/&#34;&gt;github repos&lt;/a&gt;, like &lt;code&gt;knit&lt;/code&gt;, &lt;code&gt;bookdown&lt;/code&gt; and &lt;code&gt;xaringan&lt;/code&gt;. If you are documenting your research/analysis, making a book, presentation or a blog, these can be very handy. He also writes a &lt;a href=&#34;https://bookdown.org/yihui/blogdown/&#34;&gt;book on blogdown&lt;/a&gt;, however this is far from finished.&lt;/p&gt;
+&lt;p&gt;Also from now I would like to focus on more detailed data science workflows, especially used in biology, instead of starting from the the very basics of R. See you soon in the next posts!&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

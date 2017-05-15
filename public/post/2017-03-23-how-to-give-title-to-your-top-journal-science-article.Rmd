@@ -1,0 +1,396 @@
+---
+title: How to give title to your top journal science article
+author: Gergo Palfalvi
+date: '2017-03-23'
+slug: how-to-give-title-to-your-top-journal-science-article
+categories:
+  - R
+tags:
+  - R
+  - rvest
+  - worldcloud
+  - web-scraping
+  - tidytext
+  - nature
+  - science
+summary: Not yet finished.
+draft: True
+---
+
+```{r setup, include=FALSE}
+Sys.setlocale(locale="en_US.UTF-8")
+knitr::opts_chunk$set(fig.align = 'center')
+library(tidyverse)
+library(widgetframe)
+library(wordcloud2)
+library(DT)
+
+ggplot2::theme_set(theme_classic() + theme(panel.background = element_rect(color="transparent"), 
+                                           plot.background = element_rect(color = "transparent")))
+```
+
+I was interested in webscraping and text/sentimel analysis with R and thought for a practice I can check what are the most commonly used words and phrases in a scientific top journal, like [Nature]() or [Science](). Since these are general science journals, I would not expect any scientific field can take the lead, but let's see.
+
+First we need to access their page and see how their archive is built. If we can get some information where and how they store the issues and article titles, we can start with the ```rvest``` package. Let's see the case of *Nature*. 
+
+{{% alert note %}}
+If you don't know how to access HTML/CSS tags and attributes, let's check [here](). The first step is a right-click/ctrl-click on the page, the "Inspect". 
+{{% /alert %}}
+
+Here I made a function to access any Volume - Isseu pair on the page http://www.nature.com/nature/journal/vXXX/nYYYY/index.html where XXX is the volume (```v```) and YYYY is the issue (```n```). Luckily they store these in a consistent way, so we can easily get the titles from the ```#research``` tag's ```hgroup``` html attributes. Firs let's access the website with ```read_html()```, then we can extract tags with ```html_nodes()```. To transform this to a character vector, we use ```html_text()``` and save all these in a [tibble](httm://tidyverse.com). The last issue is v = 543 n = 7645, we can test with these. 
+
+
+```{r nature_articles, warning=FALSE, error=FALSE, prompt=FALSE, message=FALSE}
+library(tidyverse)
+library(rvest)
+
+nature_articles <- function(v, n) {
+  read_html(paste("http://www.nature.com/nature/journal/v", v, "/n", n, "/index.html", sep="")) %>% 
+    html_nodes("#research") %>% 
+    html_nodes("hgroup") %>% 
+    html_text() %>% 
+    as_tibble %>%
+    return()
+}
+
+nature_articles(v = 543, n = 7645) 
+
+```
+
+{{% alert note %}}
+This selectors are only valid for issues since 2010. Before that you have to use different selector, but only until 1998. Before that It is also different and because the old static style of those sites, it is impossible (or at least very difficult) to fish out only the titles. If you want to play with the titles in 1998-2017 March, I uploaded a file [here](static/post/2017-03-23-how-to-give-title-to-your-top-journal-science-article_files/nature_articles_1998_2017.csv) with the data. 
+{{% /alert %}}
+
+
+That's great, we can get one issue's titles, but we need years of articles, which means hundreds -if not thousands- of issues. First of all we need the correct volume-issue numbers and hopefully the corresponding publishing dates also. Nature in this case also provide a nice solutions, an archive website, http://www.nature.com/nature/archive/ where we can collect the necessary information. First of all let's say we wiant to check the titles from 2015 and 2016. In this case our website url modifies to http://www.nature.com/nature/archive/?years=2016-2015. I hope you get the pattern, because we will dinamically change this part depending what years we need. Other parts are very similar to the previous.
+
+```{r}
+
+years = c(2012:2016)
+
+read_html(paste("http://www.nature.com/nature/archive/?year=", paste(years, collapse="-"), sep="")) %>%
+  html_nodes("dd") %>%
+  html_text() -> issues
+
+head(issues, 12)
+```
+
+Great! Almost. Ok, there are 2 problems: 2 unnecesarry information is joint at the and (ISSN and EISSN numbers), we should remove them.
+
+```{r}
+issues <- issues[seq_len(length(issues)-2)]
+```
+
+The other one is the fact it is a character vector, not a data frame. If you look closely, very closely, you will figure out the 1st element is a date, then the issue, volume, finally the page numbers. This last one we do not need, so we will just discard, but the others still in a nice order we can use to arrange them into a tibble. Also there are some supplementary pages (SX-SY), those are generally replicated lines without the page numbers, so we will just extract the ```unique()``` lines. Then we need to filter special issuse, which happened just a few times, but always got the S1 issue label.
+
+```{r}
+n_issues <- tibble(
+  date = parse_date(issues[c(T,F,F,F)], format = "%d %B %Y"),
+  v = parse_number(issues[c(F,T,F,F)]),
+  n = parse_number(issues[c(F,F,T,F)])
+) %>% 
+  unique() %>%
+  filter(n != 1)
+
+n_issues
+```
+
+Now we have a data frame with one issue per line. To extract all the titles we will preserve this format and will use the magical list columns in tibble. To create the new column just use casually the ```mutate()``` function from the ```dplyr``` pkg. To perform our ```nature_articles()``` function on every line, we will use the ```map2()``` function from the ```purrr``` package, since we have two inputs to this function. 
+
+```{r, eval = FALSE}
+
+n_issues %>% 
+  mutate(
+    titles = map2(
+      v, 
+      n, 
+      nature_articles
+      )
+    ) -> all_title
+
+```
+
+```{r, include = FALSE}
+read_csv("../../static/post/2017-03-23-how-to-give-title-to-your-top-journal-science-article_files/nature_articles_1998_2017.csv") -> all_title
+```
+
+```{r, echo = FALSE}
+all_title %>%
+  filter(lubridate::year(date) > 2011) %>%
+  DT::datatable()
+```
+
+{{% alert warning %}}
+This can take a long time and even can reset with ```HTML error 503``` if you want to collect a lot of data at once. Simply the website recognise your action as a bot or just cannot handle this many request. You can get a better chance if you put ```Sys.sleep()``` with some random values in the function or randomly change the user agent with ```curl::curl()```. Check [this](http://stackoverflow.com/questions/38119447/using-r-for-webscraping-http-error-503-despite-using-long-pauses-in-program) and similar issues for more info.
+{{% /alert %}}
+
+Now we have the necessary data, so let's work on it. First we have to ```unnest()``` our data frame to have one title per line (or work with an already unnested data). Then tear them down to words and delete all the punctuation and case issues. For this the ```tidytext``` package's ```unnest_token()``` function comes really handy. 
+
+Oh. And let me work from here with the data from *1998-2017*.
+
+
+
+```{r, message=FALSE}
+library(tidytext)
+
+all_title %>%
+  unnest_tokens(word, value) -> all_words
+  
+```
+
+Now we can count the words and see the most frequent ones are ...
+
+```{r}
+all_words %>% 
+  count(word, sort = TRUE) 
+```
+
+... not those we want. "of", "the", "in" and so on. These are called "stop words". To remove them we can use the ```tidytext:stop_words``` data and ```dplyr::anti_join()```.
+
+```{r}
+all_words %>% 
+  anti_join(stop_words, by = "word") %>% 
+  count(word, sort = TRUE) 
+```
+
+Now we are getting very close what we need (or now we think we need). Here already in the first two lines you can see the problem. "cell" and "cells" are independent entries. If we want to remove every modifications from a word, that is called "steming", since we will get the "stem" of the word. In the "cell", "cells" case of course "cell". There are several methods and packages, like ```SnowballC```, ```hunspell``` or ```tm```. Here I am using ```SnowballC::wordStem()```. 
+
+```{r, message=FALSE}
+library(SnowballC)
+
+all_words %>% 
+  anti_join(stop_words, by = "word") %>% 
+  mutate(word = word %>% SnowballC::wordStem()) %>%
+  count(word, sort = TRUE) -> word_count
+
+word_count
+```
+
+You may ask why there are such strange words as "structur" and "biologi" instead of "structure" and "biology". This is the result of [stemming](https://en.wikipedia.org/wiki/Word_stem). "structure", "structural", "unstructured" and so on has the common stem "structur".
+
+For a fancy graph, let's use the ```wordcloud2``` package.
+
+```{r, message=FALSE, warning=FALSE, eval = FALSE}
+library(wordcloud2)
+
+word_count %>%
+  wordcloud2(backgroundColor = "black", color = 'random-light', shape = 'circle', gridSize = 6)
+
+```
+
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
+
+wc <- word_count %>% 
+  head(1000) %>%
+  wordcloud2(backgroundColor = "black", color = 'random-light', shape = 'circle', gridSize = 6)
+
+widgetframe::frameWidget(widgetframe::frameableWidget(wc))
+
+```
+
+
+
+
+It is already really interesting. We can see, in the past 19 years the word "cell" was the most popular, exactly 2409 times popped up in Nature article titles. "Structure", "cancer", "biology", "gene", "genome", "protein" and so are mainly life science related terms. It looks like Nature is a bit biology-biased or just biologists produce much higher amount of data and publications. 
+
+The world "cell" can be in many context, find out in which context they appear the most (I bet stem cell and single cell rna-seq are the most abundant, let's take your bet, too). We can apply ```unnest_tokens()``` with ```token = "ngrams", n = 2``` arguments to pick up 2-word phrases (2-grams) and in similar way as before we can count them.
+
+```{r, eval = FALSE}
+all_title %>%
+  unnest_tokens(word, value, token="ngrams", n = 2) %>% 
+  filter( stringr::str_detect(string = .$word, pattern = "[C|c]ell[s]*") == TRUE)  %>% 
+  count(word, sort = TRUE) 
+
+```
+
+```{r, echo = FALSE}
+dt <- all_title %>%
+  unnest_tokens(word, value, token="ngrams", n = 2) %>% 
+  filter( stringr::str_detect(string = .$word, pattern = "[C|c]ell[s]*") == TRUE)  %>% 
+  count(word, sort = TRUE) %>%
+  DT::datatable()
+
+widgetframe::frameWidget(dt)
+```
+
+
+Indeed "stem cell(s)" was the most abundant, but "cell rna" was less usual (6 times) then solar cells (12 times), probably because these terms just became popular and single cell sequencing is available frm the last few years only . "single cell" was occuring 24 times (as "single cell activity", "single cell division" and so on next to "single cell rna-seq").
+
+```{r}
+
+all_title %>%
+  filter( stringr::str_detect(.$value, 
+                              pattern = "[S|s]ingle([:graph:]|[:space:]){0,1}[C|c]ell")) %>%
+  select(date, value) %>%
+  DT::datatable() # For a nicer look
+
+```
+
+Interestingly the first article with "single cell" in the title just appeared in 2003 and after that only once-once in 2005, and 2006. Only from 2012 it became as popular to have some article n every year with the title containing this term.
+
+
+Also let's have a look on every 2-grams. Here I also separate the 2 words first to remove every stop word containing lines and stem them. Also "science" appears so many times due to article type headers, like "Material Science", "Earth Science", "Climate Science" and so. Because of this reason I filter lines, which contains "science". For similar reason let's delete lines with "review", "highlight", "research", "biology", "physics", "journal club",  "...et al.: reply", and "50", "100". These numbers from the series "50 and 100 years ago"
+
+```{r}
+all_title %>%
+  unnest_tokens(word, value, token="ngrams", n = 2) %>% 
+  separate(word, into = c("word1", "word2")) %>% 
+  anti_join(stop_words, by = c("word1" = "word")) %>%
+  anti_join(stop_words, by = c("word2" = "word")) %>%
+  filter(!word1 %in% c("science", "review", "highlight", "research", "biology", "physics", "journal", "club", "communication", "al", "50"),
+         !word2 %in% c("science", "review", "highlight", "research", "biology", "physics", "journal", "club", "reply", "100")) %>%
+  mutate(
+    word1 = word1 %>% wordStem(),
+    word2 = word2 %>% wordStem()) %>% 
+  unite(word, word1, word2, sep = " ") %>%
+  count(word, sort = TRUE) -> ngrams_2
+
+ngrams_2 %>% 
+  head(100) %>% 
+  DT::datatable()
+
+ngrams_2 %>%
+  head(500) %>%
+  wordcloud2(backgroundColor = "black", color = 'random-light', shape = 'circle', gridSize = 6)
+
+```
+
+
+From this, it is very clear *Nature*'s main focus is on stem cells. The second place is climate change, but still ~2.75x less occurance then the winner. "Crystal structure" and "structural basis" are mainly protein or polymer structures, which is a very popular field. If you are working in **material science**, better to go with these, or at least with carbon nanotubes
+
+Condensed-matter physics is yet another article type, looks like we could't clean all of them. 
+
+Gene expression, genome sequence/ing and cell cycle, DNA damage and transcription factor are the most popular molecular biology terms (of course after stem cell). If you want to publish a *Nature* paper, looks like these fields are the hot topics in **life sciences**. 
+
+If you are working in **physics**, probably black holes and magnetic fields are the best choices. 
+
+
+
+And the most popular biological model organism on full name: **Caenorhabditis elegans** with 68 occurance in *Nature* article titles within 19 years. However **Drosophila** appeared 256 times. For a detailed look on the popularity of different model organisms, look at this table (human excluded, because it would take over everything):
+
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
+
+model_orgs <- c(
+  "escherichia",
+  "coli",
+  "bacillus",
+  "chlamydomonas",
+  "aspergillus",
+  "neurospora",
+  "saccharomyces",
+  "cerevisiae",
+  "shizosaccharomyces",
+  "arabidopsis",
+  "thale",
+  "oryza",
+  "rice",
+  "crop",
+  "lotus",
+  "maize",
+  "zea",
+  "medicago",
+  "tobacco",
+  "selaginella",
+  "physcomitrella",
+  "moss",
+  "aplysia",
+  "caenorhabditis",
+  "daphnia",
+  "drosophila",
+  "melanogaster",
+  "nematostella",
+  "medaka",
+  "oryzias",
+  "mouse",
+  "mus",
+  "rat",
+  "rattus",
+  "xenopus",
+  "danio",
+  "zebrafish",
+  "hela",
+  "t4",
+  "phage",
+  "yeast"
+)
+
+all_words %>% 
+  filter(word %in% model_orgs) %>%
+  count(word, sort = TRUE) %>%
+  DT::datatable()
+
+all_words %>% 
+  filter(word %in% model_orgs) %>%
+  count(word, sort = TRUE) %>%
+  wordcloud2(backgroundColor = "black", color = 'random-light', shape = 'circle', gridSize = 6, size = 0.9)
+```
+
+
+## Changing paradigms
+
+So far so nice, I am already very glad with these results, but there are one more aspect I am interested. Research trends are changing in time, for example 19 years ago there was no genome sequencing, which take the place of genetic mapping. 
+
+```{r}
+bad_words <- c("scienc", "science", "review", "highlight", "research", "biology", "physics", "journal", "club", "communication", "al", "reply", "50", "100", "new")
+
+all_words %>% 
+  mutate(year = lubridate::year(date)) %>%
+  anti_join(stop_words, by = "word") %>% 
+  filter(!word %in% bad_words,
+         year != 2017) %>% 
+  mutate(word = word %>% SnowballC::wordStem()) %>%
+  group_by(year) %>%
+  count(word, sort = TRUE) -> word_count_year
+
+word_count_year %>%
+  DT::datatable()
+
+```
+
+First of all let's see the number of words in every year. 
+
+```{r}
+word_count_year %>%
+  filter(year != 2017) %>%
+  group_by(year) %>%
+  summarize(sum = sum(nn)) %>%
+  ggplot() +
+  geom_line(aes(x = year, 
+                y = sum),
+            alpha = 0.6,
+            size =2) 
+
+```
+
+Look's like in 2010 there was less publications or extra short titles. We van find out, if we just see the number of publications by year.
+
+```{r}
+all_title %>%
+  mutate(year = lubridate::year(date)) %>%
+  filter(year != 2017) %>%
+  group_by(year) %>%
+  summarize(sum = value %>% 
+              length() %>% 
+              sum()) %>%
+  ggplot() +
+  geom_line(aes(x = year,
+                y = sum),
+            size = 2) +
+  labs(title = "Number of Publications in Nature",
+       x = "Year",
+       y = "Number of publications") 
+
+```
+
+```{r}
+word_count_year %>%
+  filter(word %in% c("evolut")) %>%
+  ggplot() +
+  geom_line(aes(x = year, 
+                y = nn,
+                color = word),
+            alpha = 0.6,
+            size =2) 
+
+
+```

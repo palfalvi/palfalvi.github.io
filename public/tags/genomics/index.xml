@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Genomics on R for Biology</title>
+    <link>/tags/genomics/index.xml</link>
+    <description>Recent content in Genomics on R for Biology</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2017 Gergo Palfalvi</copyright>
+    <atom:link href="/tags/genomics/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Evolution and Development of Cephalotus follicularis</title>
+      <link>/project/cephalotus_genomics/</link>
+      <pubDate>Wed, 01 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/project/cephalotus_genomics/</guid>
+      <description>&lt;p&gt;Evolution and development of the pitcher leaf of the Albany pitcher plant &lt;i&gt;Cephalotus follicularis&lt;/i&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Genomic studies on the Droseraceae family</title>
+      <link>/project/droseraceae/</link>
+      <pubDate>Wed, 01 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/project/droseraceae/</guid>
+      <description>&lt;p&gt;Understanding the evolution of &lt;i&gt;Drosera&lt;/i&gt;, &lt;i&gt;Dionaea muscipula&lt;/i&gt; and &lt;i&gt;Aldrovanda vesiculosa&lt;/i&gt; in collaboration with &lt;a href=&#34;http://www.bot1.biozentrum.uni-wuerzburg.de/en/research/hedrich/projects/erc_2009_carnivorom/&#34; target=&#34;_blank&#34;&gt;Prof. Rainer Hedrich&amp;rsquo;s lab&lt;/a&gt; at University of Würzburg.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

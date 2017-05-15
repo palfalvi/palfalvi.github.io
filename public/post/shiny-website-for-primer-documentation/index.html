@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="theme" content="hugo-academic">
+  <meta name="generator" content="Hugo 0.19" />
+  <meta name="author" content="Gergo Palfalvi">
+  <meta name="description" content="PhD Student in Evolutionary Biology">
+
+  
+  
+  
+    
+  
+  
+    
+    
+    <link rel="stylesheet" href="/css/highlight.min.css">
+    
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/academicons.min.css">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:400,700|Merriweather|Roboto+Mono">
+  <link rel="stylesheet" href="/css/hugo-academic.css">
+  
+
+  <link rel="alternate" href="/index.xml" type="application/rss+xml" title="R for Biology">
+  <link rel="feed" href="/index.xml" type="application/rss+xml" title="R for Biology">
+
+  <link rel="icon" type="image/png" href="/img/icon.png">
+  <link rel="apple-touch-icon" type="image/png" href="/img/apple-touch-icon.png">
+
+  <link rel="canonical" href="/post/shiny-website-for-primer-documentation/">
+
+  
+
+  <title>Shiny Website for Primer Documentation | R for Biology</title>
+
+</head>
+<body id="top" data-spy="scroll" data-target="#navbar-main" data-offset="71">
+
+<nav class="navbar navbar-default navbar-fixed-top" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+              data-target=".navbar-collapse" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">R for Biology</a>
+    </div>
+
+    
+    <div class="collapse navbar-collapse">
+
+      
+      <ul class="nav navbar-nav navbar-right">
+        
+
+        
+
+        <li class="nav-item">
+          <a href="/#about">
+            
+            <span>Home</span>
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        <li class="nav-item">
+          <a href="/#posts">
+            
+            <span>Posts</span>
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        <li class="nav-item">
+          <a href="/#publications">
+            
+            <span>Publications</span>
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        <li class="nav-item">
+          <a href="/#projects">
+            
+            <span>Projects</span>
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        <li class="nav-item">
+          <a href="/#contact">
+            
+            <span>Contact</span>
+          </a>
+        </li>
+
+        
+        
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+
+<article class="article" itemscope itemtype="http://schema.org/Article">
+
+  
+
+  <div class="article-container">
+    <h1 itemprop="name">Shiny Website for Primer Documentation</h1>
+    
+
+<div class="article-metadata">
+
+  <span class="article-date">
+    <time datetime="2017-03-07 00:00:00 &#43;0000 UTC" itemprop="datePublished">
+      Tue, Mar 7, 2017
+    </time>
+  </span>
+
+  
+  
+  
+  <span class="article-categories">
+    <i class="fa fa-folder"></i>
+    
+    <a href="/categories/shiny">shiny</a
+    >, 
+    
+    <a href="/categories/primer">primeR</a
+    >
+    
+  </span>
+  
+  
+
+  
+  
+  
+  <span class="article-tags">
+    <i class="fa fa-tags"></i>
+    
+    <a href="/tags/r">R</a
+    >, 
+    
+    <a href="/tags/rstudio">RStudio</a
+    >, 
+    
+    <a href="/tags/shiny">Shiny</a
+    >, 
+    
+    <a href="/tags/database">database</a
+    >, 
+    
+    <a href="/tags/bioinformatics">bioinformatics</a
+    >
+    
+  </span>
+  
+  
+
+  
+  
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    <li>
+      <a class="facebook"
+         href="https://www.facebook.com/sharer.php?u=%2fpost%2fshiny-website-for-primer-documentation%2f"
+         target="_blank">
+        <i class="fa fa-facebook"></i>
+      </a>
+    </li>
+    <li>
+      <a class="twitter"
+         href="https://twitter.com/intent/tweet?text=Shiny%20Website%20for%20Primer%20Documentation&amp;url=%2fpost%2fshiny-website-for-primer-documentation%2f"
+         target="_blank">
+        <i class="fa fa-twitter"></i>
+      </a>
+    </li>
+    <li>
+      <a class="linkedin"
+         href="https://www.linkedin.com/shareArticle?mini=true&amp;url=%2fpost%2fshiny-website-for-primer-documentation%2f&amp;title=Shiny%20Website%20for%20Primer%20Documentation"
+         target="_blank">
+        <i class="fa fa-linkedin"></i>
+      </a>
+    </li>
+    <li>
+      <a class="weibo"
+         href="http://service.weibo.com/share/share.php?url=%2fpost%2fshiny-website-for-primer-documentation%2f&amp;title=Shiny%20Website%20for%20Primer%20Documentation"
+         target="_blank">
+        <i class="fa fa-weibo"></i>
+      </a>
+    </li>
+    <li>
+      <a class="email"
+         href="mailto:?subject=Shiny%20Website%20for%20Primer%20Documentation&amp;body=%2fpost%2fshiny-website-for-primer-documentation%2f">
+        <i class="fa fa-envelope"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+  
+
+</div>
+
+    <div class="article-style" itemprop="articleBody">
+      <script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
+<link href="/rmarkdown-libs/vis/vis.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/vis/vis.min.js"></script>
+<script src="/rmarkdown-libs/visNetwork-binding/visNetwork.js"></script>
+
+<p>I am working in a relatively big molecular biology laboratory where sometimes the common stocks and orders documentation can be a hassle. Recently I ran into one of this problem and decided to change the way to maintain a documentation of our oligonucleotide storage.</p>
+<div class="alert alert-note">
+  <p>If you are not familiar with the term <a href="https://en.wikipedia.org/wiki/Primer_(molecular_biology)"><em>primer</em></a> and <a href="https://en.wikipedia.org/wiki/Oligonucleotide"><em>oligonicleotide</em></a>, start on Wikipedia.</p>
+
+</div>
+
+<p>Since we keep track every single ordered oligonucleotide this laboratory ordered, now there are more then 10.000 records. Until now they deployed to a shared Excel file on a common server. There was several problem with this method, let me highlight a few:</p>
+<ul>
+<li>You have to manually add the unique identifier for the tube (a number, indicating the location to be stored). It resulted duplicated, skipped and even mistyped IDs.</li>
+<li>You have to write the sequence manually or with Copy-Paste.</li>
+<li>You can write any silly abbreviation for your name. Also can cause unidentifiable authors or authors with several types of entry names.</li>
+<li>If someone left it open on their machine, others cannot edit until it is not closed.</li>
+<li>Difficult to run BLAST. If a lab already has 10.000+ primers, sometimes you just look up what you need instead of ordering new ones. <a href="https://blast.ncbi.nlm.nih.gov/Blast.cgi">BLAST</a> can do this job, but it is not so convenient to update a local BLAST database from excel every time someone deploy some new records (a few times a day).</li>
+<li>It is Excel.</li>
+<li>Again. It is Excel. Anyone easily could delete a few lines or even the whole document. No authorized access for any type of editing.</li>
+</ul>
+<p>Considering these, I decided to create a <a href="http://shiny.rstudio.com">Shiny</a> webpage on our local server to automatically maintain and protect this database with some extra function and a highly user-friendly interface. I also would be able to distribute a backbone from this site on github if anyone has similar problems or just wants to use. Since this is a bigger project to put in one post and also some part is highly personalized to our laboratory, I will cover only some important parts, like some specific plotting and data processing, how to build up a shiny app within several posts.</p>
+<div id="the-basic-ideas-behind-the-webpage" class="section level2">
+<h2>The basic ideas behind the webpage</h2>
+<ol style="list-style-type: decimal">
+<li><p>I would like to store the primer information in a database instead of a <code>.csv</code> or <code>.xls</code> file. My main candidates for this is <a href="https://www.postgresql.org">postgreSQL</a> or <a href="https://www.sqlite.org">SQLite</a>, but it could be changed freely later.</p></li>
+<li><p>I want an interface where people can deploy primers even by manually or uploading a file (which is usually provided by the company we order from). This also should auto generate the unique IDs for the tubes.</p></li>
+<li><p>Ability to build a BLAST database from the database (probably through a <code>.fasta</code> file). This also should be triggered every time when new records are submitted (e.g. by button press or by monitoring the database time stamp).</p></li>
+<li><p>Ability to access the server’s BLAST engine from R/Shiny and to process the output in real time.</p></li>
+<li><p>A view window for browsing among existing primers.</p></li>
+<li><p>Following up on availability of the primer. If someone finished a tube, make it possible to indicate it with also a possible reordering option and connecting the unique IDs.</p></li>
+<li><p>Overcome all of the cons mentioned above.</p></li>
+</ol>
+<p>Here is a diagram (created with the <a href="http://rich-iannone.github.io/DiagrammeR/">DiagrammeR</a> package) about the core ideas:</p>
+<div id="htmlwidget-c990278410b71d556446" style="width:672px;height:480px;" class="visNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c990278410b71d556446">{"x":{"nodes":{"id":[1,2,3,4,5,6,7],"group":["A","A","A","A","A","A","B"],"label":["Primer Data Table \n (postgreSQL/\nSQLite)","New primer input","Create .fasta","Update blast database","BLAST search input","BLAST search output","Update"],"shape":["database","ellipse","box","box","ellipse","ellipse","circle"],"style":["filled","filled","filled","filled","filled","filled","filled"],"color":["limegreen","orange","dodgerblue","dodgerblue","orange","orange","pink"],"font.size":[20,20,20,20,20,20,20],"shadow.enabled":[true,true,true,true,true,true,true],"shadow.size":[10,10,10,10,10,10,10],"shadow...":["","","","","","",""],"shadow....1":["","","","","","",""],"shadow....2":["","","","","","",""],"shadow....3":["","","","","","",""],"shadow....4":["","","","","","",""],"smooth":[true,true,true,true,true,true,true],"level":[1,4,2,2,4,4,3]},"edges":{"id":[1,2,3,4,5,6,7,8],"from":[2,2,1,7,7,3,5,4],"to":[1,7,3,3,4,4,4,6],"label":["","","","","","","",""]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot"},"manipulation":{"enabled":false},"edges":{"arrows":{"to":{"enabled":true,"scaleFactor":1}}},"physics":{"stabilization":{"enabled":true,"onlyDynamicEdges":false,"fit":true}},"layout":{"improvedLayout":true,"hierarchical":{"enabled":true,"levelSeparation":270,"direction":"LR","sortMethod":"directed"}}},"groups":["A","B"],"width":null,"height":null,"idselection":{"enabled":false},"byselection":{"enabled":false},"main":null,"submain":null,"footer":null},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="extra-functions" class="section level2">
+<h2>Extra functions</h2>
+<ul>
+<li>Create new primers using <a href="http://primer3.ut.ee">Primer3</a> (and BLAST) in-app. For this, we have to manipulate the UNIX command line application from R. Luckily it is not so difficult.</li>
+</ul>
+<p>Extending this possibility we can even search for gRNAs for our CRISPR experiments with non-model genomes we work with. And also just for keep everything nicely in one place.</p>
+<hr />
+<p>In the next post I would like to show how to recreate an interactive graphical output from a BLAST search result, similar as you can see on the <a href="https://blast.ncbi.nlm.nih.gov/Blast.cgi">BLAST</a> website after performing a search.</p>
+</div>
+
+    </div>
+  </div>
+
+</article>
+
+<div class="container">
+  <nav>
+  <ul class="pager">
+    
+    <li class="previous"><a href="/post/starting-with-blogdown/"><span
+      aria-hidden="true">&larr;</span> Starting with blogdown</a></li>
+    
+
+    
+    <li class="next"><a href="/post/local-blast-from-r/">Local BLAST from R <span
+      aria-hidden="true">&rarr;</span></a></li>
+    
+  </ul>
+</nav>
+
+</div>
+
+<div class="article-container">
+  
+<section id="comments">
+  <div id="disqus_thread">
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'palfalvi-github-io';
+    var disqus_identifier = '\/post\/shiny-website-for-primer-documentation\/';
+    var disqus_title = 'Shiny Website for Primer Documentation';
+    var disqus_url = '\/post\/shiny-website-for-primer-documentation\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+  </div>
+</section>
+
+
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <p class="powered-by">
+
+      &copy; 2017 Gergo Palfalvi &middot; 
+
+      Powered by the <a href="https://github.com/gcushen/hugo-academic" target="_blank">Academic
+      theme</a> for <a href="http://gohugo.io" target="_blank">Hugo</a>.
+
+      <span class="pull-right" aria-hidden="true">
+        <a href="#" id="back_to_top">
+          <span class="button_icon">
+            <i class="fa fa-chevron-up fa-2x"></i>
+          </span>
+        </a>
+      </span>
+
+    </p>
+  </div>
+</footer>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.4/TweenMax.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/gsap/latest/plugins/ScrollToPlugin.min.js"></script>
+    <script src="/js/jquery-1.12.3.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/isotope.pkgd.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.1/imagesloaded.pkgd.min.js"></script>
+    <script src="/js/hugo-academic.js"></script>
+    
+
+    
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-88946514-2', 'auto');
+        ga('send', 'pageview');
+
+         
+        var links = document.querySelectorAll('a');
+        Array.prototype.map.call(links, function(item) {
+            if (item.host != document.location.host) {
+                item.addEventListener('click', function() {
+                    var action = item.getAttribute('data-action') || 'follow';
+                    ga('send', 'event', 'outbound', action, item.href);
+                });
+            }
+        });
+    </script>
+    
+
+    
+    
+      
+      <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+
+      
+
+      
+
+      <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    
+    
+
+  </body>
+</html>
+
