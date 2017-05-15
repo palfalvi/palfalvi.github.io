@@ -1,0 +1,16 @@
+---
+title: Every child wants to be Spiderman.
+author: Gergo Palfalvi
+date: '2017-05-15'
+slug: every-child-wants-to-be-spiderman
+categories:
+  - post
+tags:
+  - bioinformatics
+  - network
+summary: 
+draft: true
+---
+
+
+Every young people on the Earth wanted to be a superhero in some point. Common idols was Batman, Superman or Spiderman. For some of them, the dream somehow came to. As far as they are engaged with web development or network science in any level.
