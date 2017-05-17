@@ -1,0 +1,7 @@
+---
+title: Testing HTMLwidgets
+author: Gergo Palfalvi
+date: '2017-05-17'
+slug: testing-htmlwidgets
+---
+

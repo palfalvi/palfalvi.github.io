@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Biology on R for Biology</title>
+    <link>/categories/biology/index.xml</link>
+    <description>Recent content in Biology on R for Biology</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2017 Gergo Palfalvi</copyright>
+    <atom:link href="/categories/biology/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Complexity in biology</title>
+      <link>/post/complexity-in-biology/</link>
+      <pubDate>Tue, 16 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/post/complexity-in-biology/</guid>
+      <description>&lt;!-- BLOGDOWN-HEAD --&gt;
+&lt;!-- /BLOGDOWN-HEAD --&gt;
+
+&lt;!-- BLOGDOWN-BODY-BEFORE --&gt;
+&lt;!-- /BLOGDOWN-BODY-BEFORE --&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;I think the next century will be the century of complexity.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;by Stephen Hawking at 2000. January&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;That century is here, we already passed 17 years of it and it looks Hawking was right. We dig into complexity, we generate huge amount of data and easily share everything. Biology is not an exceptation, NGS (New Generation Sequencing) techniques allow us to have mass amount of nucleotide sequence data from different kind of sequencing, most popularly WGS (Whole Genome Sequencing) and RNA-seq. However these generates massive amount of information, most of the biologists tend to still select and focus on one or maximum a few single genes, usually transcription factors (TF). This is somehow understandable, since we are in the middle of a &lt;strong&gt;paradigm shift&lt;/strong&gt; where biology will transform from a qualitaty-driven science to a quantitative science. What does it mean? In biology it was (and is) widely accepted to describe a phenomena with only words. Statistics class is already integrated in biology teaching, but what about &lt;strong&gt;bioinformatics&lt;/strong&gt;? It is not widely teached and also often treated as a “black sheep”. There is a &lt;a href=&#34;http://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.2002050&#34;&gt;nice article&lt;/a&gt; in the topic written by &lt;a href=&#34;http://www.markowetzlab.org/&#34;&gt;Florian Markowetz&lt;/a&gt;.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;“Pipette biologist. Microscopy biologist. Cell culture biologist. Have you ever heard any of those job titles? No, of course not. All are biologists, because it is the questions you address that matter, not the tools you use, and computational biologists are just biologists using a different tool.”&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Anyway, more and more student wants to work with “sexy” tools in biology, including genomic sciences, but universities in general are not ready to prepare them for these things. I was in very similar situation in a few years, our bioinformatics class was exhausted in a few online BLAST search while I was already working with RNA-seq data analysis. For me there is a special field I am love with and want to understand and apply: &lt;strong&gt;Network science&lt;/strong&gt; or Systems biology, network biology. And also there is a twist in the story, since I do not work with regular model plants, like Arabidopsis or Rice. For them there are many types of networks available including protein-protein interaction, metabolic or just a simple co-expression. For a non-model or emerging model plant nothing is available and the most easiest things to do are genome sequencing and transcriptomic data. Draw and analyse network from transcriptomic data is not a well-established , highly evolving part of biology, but can open mush more information then a simple differential gene expression analysis. The 4 big steps in gene regulatory network (GRN) inference analysis:&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Experimental design and mass-information production (RNA-seq, sRNA-seq, ChIP-seq etc.)&lt;/li&gt;
+&lt;li&gt;GRN building&lt;/li&gt;
+&lt;li&gt;Topological analysis of the network&lt;/li&gt;
+&lt;li&gt;Analyse network dinamics&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div id=&#34;experimental-design-and-mass-information-production&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Experimental design and mass-information production&lt;/h2&gt;
+&lt;p&gt;It is important to design the sample collection in the aim of your study. If the phenomena remains hidden possibly we still can build a network from the data and analyse it, but the our main interest can be invisible or hidden.&lt;br /&gt;
+Also we can think the level of the regulation in the GRN. With RNA-seq we can see expressional dependencies between genes (either linear or non-linear relationships). smallRNA-seq allows to incorporate sRNA regulation level, which can add a direct negative link to the target (especially if we have quantitative sRNA-seq data). with Chromatin Immunprecipitation coupled with NGS sequencing (ChIP-seq) we can get direct transcriptional regulatory motifs from DNA-binding proteins (mainly transcriptional factors and histone variants/modifications). There are several other techniques we can expand our dataset even with genetic or epigenetic regulators.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;grn-building&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;GRN building&lt;/h2&gt;
+&lt;p&gt;Probably this is the most difficult part, since there is no “gold standard” method and newer and better methods are continously appearing day-by-day. However I list a few methods/packages for R or Python which can be useful if you are thinking to perform some GRN inference.&lt;/p&gt;
+&lt;p&gt;First of all I can recommend the &lt;a href=&#34;http://dreamchallenges.org/&#34;&gt;DREAM&lt;/a&gt; GRN Inference paper: &lt;a href=&#34;https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3512113/&#34;&gt;&lt;em&gt;Wisdom of crowds for robust gene network inference&lt;/em&gt;&lt;/a&gt; and &lt;a href=&#34;http://barabasi.com&#34;&gt;Albert-Laszlo Barabasi’s webpage&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Interesting packages:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;igraph&lt;/li&gt;
+&lt;li&gt;RedeR&lt;/li&gt;
+&lt;li&gt;WGCNA&lt;/li&gt;
+&lt;li&gt;Genie3&lt;/li&gt;
+&lt;li&gt;CLR&lt;/li&gt;
+&lt;li&gt;ARACNE&lt;/li&gt;
+&lt;li&gt;MRNET&lt;/li&gt;
+&lt;li&gt;Infelerator/cMonkey&lt;/li&gt;
+&lt;li&gt;NIMEFI&lt;/li&gt;
+&lt;li&gt;Tigress&lt;/li&gt;
+&lt;li&gt;netter&lt;/li&gt;
+&lt;li&gt;GRACE&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
