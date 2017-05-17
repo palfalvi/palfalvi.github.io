@@ -12,6 +12,7 @@ tags:
   - network
   - complexity
 summary: Nothing.
+draft: true
 ---
 
 > *I think the next century will be the century of complexity.*   
@@ -55,6 +56,35 @@ Interesting packages:
 * Tigress
 * netter
 * GRACE
+
+
+
+```{r}
+
+# Silencing based on Barzel B, Barabási AL (2013) Network link prediction by global silencing of indirect correlations
+silence_matrix <- function(G, S = NULL) {
+  
+  N <- ncol(G)
+  
+  if(is.null(S)) {
+    D <- (G - diag(N)) * G
+    D <- D * diag(N)
+  } else {
+    D <- (G*S) * diag(N)
+  }
+
+  S = (G - diag(N) + D) * solve(G)
+  
+  for (i in 1:N) {
+    S[i,i] <- 0
+  }
+  
+  S <- abs(S)/max(abs(S))
+  
+  return(S)
+}
+
+```
 
 
 

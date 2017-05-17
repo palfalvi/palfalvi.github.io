@@ -12,6 +12,7 @@ tags:
   - network
   - complexity
 summary: Nothing.
+draft: true
 ---
 
 <!-- BLOGDOWN-HEAD -->
@@ -58,4 +59,26 @@ Also we can think the level of the regulation in the GRN. With RNA-seq we can se
 <li>netter</li>
 <li>GRACE</li>
 </ul>
+<pre class="r"><code># Silencing based on Barzel B, Barabási AL (2013) Network link prediction by global silencing of indirect correlations
+silence_matrix &lt;- function(G, S = NULL) {
+  
+  N &lt;- ncol(G)
+  
+  if(is.null(S)) {
+    D &lt;- (G - diag(N)) * G
+    D &lt;- D * diag(N)
+  } else {
+    D &lt;- (G*S) * diag(N)
+  }
+
+  S = (G - diag(N) + D) * solve(G)
+  
+  for (i in 1:N) {
+    S[i,i] &lt;- 0
+  }
+  
+  S &lt;- abs(S)/max(abs(S))
+  
+  return(S)
+}</code></pre>
 </div>
