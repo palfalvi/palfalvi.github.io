@@ -4,6 +4,14 @@
     
     
     <url>
+      <loc>/post/testing-htmlwidgets/</loc>
+      <lastmod>2017-05-17T00:00:00+00:00</lastmod>
+    </url>
+    
+  
+    
+    
+    <url>
       <loc>/post/complexity-in-biology/</loc>
       <lastmod>2017-05-16T00:00:00+00:00</lastmod>
     </url>
@@ -148,7 +156,7 @@
     
     
     <url>
-      <loc>/tags/biology/</loc>
+      <loc>/categories/biology/</loc>
       <lastmod>2017-05-16T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
@@ -157,7 +165,7 @@
     
     
     <url>
-      <loc>/categories/biology/</loc>
+      <loc>/tags/biology/</loc>
       <lastmod>2017-05-16T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
@@ -273,7 +281,7 @@
     
     
     <url>
-      <loc>/tags/r/</loc>
+      <loc>/categories/r/</loc>
       <lastmod>2017-03-23T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
@@ -282,7 +290,7 @@
     
     
     <url>
-      <loc>/categories/r/</loc>
+      <loc>/tags/r/</loc>
       <lastmod>2017-03-23T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
@@ -336,7 +344,7 @@
     
     
     <url>
-      <loc>/tags/shiny/</loc>
+      <loc>/categories/shiny/</loc>
       <lastmod>2017-03-09T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
@@ -345,7 +353,7 @@
     
     
     <url>
-      <loc>/categories/shiny/</loc>
+      <loc>/tags/shiny/</loc>
       <lastmod>2017-03-09T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
