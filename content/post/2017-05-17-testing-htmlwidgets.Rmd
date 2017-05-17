@@ -3,5 +3,29 @@ title: Testing HTMLwidgets
 author: Gergo Palfalvi
 date: '2017-05-17'
 slug: testing-htmlwidgets
+summary: test
 ---
 
+
+This post is only for testing htmlwidgets in this blogdown pipeline.
+
+
+```{r}
+library(htmlwidgets)
+library(DT)
+data(iris)
+iris %>% DT::datatable()
+```
+
+
+```{r}
+library(highcharter)
+highcharts_demo() %>% 
+  hc_add_theme(hc_theme_chalk())
+```
+
+```{r}
+library(wordcloud2)
+
+wordcloud2(data = demoFreq)
+```
