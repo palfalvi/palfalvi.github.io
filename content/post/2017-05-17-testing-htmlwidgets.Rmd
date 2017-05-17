@@ -29,3 +29,11 @@ library(wordcloud2)
 
 wordcloud2(data = demoFreq)
 ```
+
+
+```{r}
+library(widgetframe)
+widgetframe::frameWidget(
+wordcloud2(data = demoFreq)
+)
+```
