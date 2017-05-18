@@ -23,7 +23,7 @@ weight = 1
 [[education.courses]]
   course = "PhD in Biology"
   institution = "National Institute for Basic Biology, Japan"
-  year = 2020 
+  year = present 
 
 [[education.courses]]
   course = "MSc in Biology (Plant Biology)"

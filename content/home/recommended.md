@@ -14,6 +14,10 @@ weight = 80
 
 +++
 
+[Albert-Laszlo Barabasi's webpage](http://barabasi.com)
+
+[Liechi Zhang's webpage](https://www.liechi.org/)
+
 [R-bloggers](https://www.r-bloggers.com)
 
 [RStudio's blog](https://blog.rstudio.org)
