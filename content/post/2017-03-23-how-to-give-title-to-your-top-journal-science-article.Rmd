@@ -14,7 +14,7 @@ tags:
   - nature
   - science
 summary: I was interested in web scraping and text/sentinel analysis with R and thought for a practice I can check what are the most commonly used words and phrases in a scientific top journal, like Nature or Science. It can help you to learn several R packages and techniques and also help to find out what are the most popular terms you can use for a research paper's title if you want to publish with the top.
-draft: true
+draft: false
 ---
 
 ```{r setup, include=FALSE}
