@@ -29,6 +29,7 @@ ggplot2::theme_set(theme_classic() + theme(panel.background = element_rect(color
                                            plot.background = element_rect(color = "transparent")))
 ```
 
+
 I was interested in web scraping and text/sentinel analysis with R and thought for a practice I can check what are the most commonly used words and phrases in a scientific top journal, like [Nature](https://www.nature.com/) or [Science](http://www.sciencemag.org/). Since these are general science journals, I would not expect any scientific field can take the lead, but let's see.
 
 First we need to access their page and see how their archive is built. If we can get some information where and how they store the issues and article titles, we can start with the ```rvest``` package. Let's see the case of *Nature*. 
