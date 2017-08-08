@@ -1,7 +1,7 @@
 ---
 title: How to give title to your top journal science article
 author: Gergo Palfalvi
-date: '2017-03-23'
+date: '2017-08-08'
 slug: how-to-give-title-to-your-top-journal-science-article
 categories:
   - R
