@@ -24,6 +24,8 @@ highcharts_demo() %>%
   hc_add_theme(hc_theme_chalk())
 ```
 
+
+
 ```{r}
 library(wordcloud2)
 
@@ -37,3 +39,5 @@ widgetframe::frameWidget(
 wordcloud2(data = demoFreq)
 )
 ```
+
+
