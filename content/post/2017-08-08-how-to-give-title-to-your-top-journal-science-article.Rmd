@@ -59,7 +59,7 @@ nature_articles(v = 543, n = 7645)
 ```
 
 {{% alert note %}}
-This selectors are only valid for issues since 2010. Before that you have to use different selector, but only until 1998. Before that It is also different and because the old static style of those sites, it is impossible (or at least very difficult) to fish out only the titles. If you want to play with the titles in 1998-2017 March, I uploaded a file [here](static/post/2017-03-23-how-to-give-title-to-your-top-journal-science-article_files/nature_articles_1998_2017.csv) with the data. 
+This selectors are only valid for issues since 2010. Before that you have to use different selector, but only until 1998. Before that It is also different and because the old static style of those sites, it is impossible (or at least very difficult) to fish out only the titles. If you want to play with the titles in 1998-2017 March, I uploaded a file [here](static/post/2017-08-08-how-to-give-title-to-your-top-journal-science-article_files/nature_articles_1998_2017.csv) with the data. 
 {{% /alert %}}
 
 
@@ -112,7 +112,7 @@ n_issues %>%
 ```
 
 ```{r, include = FALSE}
-read_csv("../../static/post/2017-03-23-how-to-give-title-to-your-top-journal-science-article_files/nature_articles_1998_2017.csv") -> all_title
+read_csv("../../static/post/2017-08-08-how-to-give-title-to-your-top-journal-science-article_files/nature_articles_1998_2017.csv") -> all_title
 ```
 
 ```{r}
@@ -177,11 +177,12 @@ Unfortunately some htmlwidgets have problems with blogdown and the issue is not 
 For a fancy graph, let's use the ```wordcloud2``` package.
 
 
-```{r, message=FALSE, warning=FALSE, eval = FALSE}
+```{r, message=FALSE, warning=FALSE}
 library(wordcloud2)
 
 word_count %>%
-  wordcloud2(backgroundColor = "black", color = 'random-light', shape = 'circle', gridSize = 6)
+  wordcloud2(backgroundColor = "black", color = 'random-light', shape = 'circle', gridSize = 6) %>%
+  frameWidget()
 
 ```
 
