@@ -191,7 +191,7 @@ word_count %>%
 library(wordcloud2)
 
 word_count %>%
-  wordcloud2(backgroundColor = "black", color = 'random-light', shape = 'circle', gridSize = 6) -> wc1
+  wordcloud2(backgroundColor = "black", color = 'random-light', shape = 'circle', gridSize = 4) -> wc1
 
 frameWidget(wc1, width = "100%", height = "350")
 ```
@@ -224,7 +224,7 @@ all_title %>%
 
 ```
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, fig.height=380}
 all_title %>%
   unnest_tokens(word, value, token="ngrams", n = 2) %>% 
   filter( stringr::str_detect(string = .$word, pattern = "[C|c]ell[s]*") == TRUE)  %>% 
@@ -277,7 +277,7 @@ ngrams_2 %>%
 
 ngrams_2 %>%
   head(500) %>%
-  wordcloud2(backgroundColor = "black", color = 'random-light', shape = 'circle', gridSize = 6) -> wc2
+  wordcloud2(backgroundColor = "black", color = 'random-light', shape = 'circle', gridSize = 3) -> wc2
 
 frameWidget(wc2, width = "100%", height = "350")
 
