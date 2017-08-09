@@ -21,7 +21,7 @@ draft: no
 
 ```{r setup, include=FALSE}
 Sys.setlocale(locale="en_US.UTF-8")
-knitr::opts_chunk$set(fig.align = 'center')
+knitr::opts_chunk$set(fig.align = 'center', warning = FALSE, error = FALSE, message = FALSE)
 library(tidyverse)
 library(widgetframe)
 library(wordcloud2)
@@ -172,9 +172,6 @@ word_count
 
 You may ask why there are such strange words as "structur" and "biologi" instead of "structure" and "biology". This is the result of [stemming](https://en.wikipedia.org/wiki/Word_stem). "structure", "structural", "unstructured" and so on has the common stem "structur".
 
-{{% alert warning %}}
-Unfortunately some htmlwidgets have problems with blogdown and the issue is not resolved yet. I have to avoid using wordcloud2 or DataTable, but as soon as they will be available for blogdown, I will update this post. Until that, you can try them on your own computer.
-{{% /alert %}}
 
 For a fancy graph, let's use the ```wordcloud2``` package.
 

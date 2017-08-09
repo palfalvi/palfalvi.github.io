@@ -186,7 +186,6 @@ word_count</code></pre>
 ## 10    activ   822
 ## # ... with 20,353 more rows</code></pre>
 <p>You may ask why there are such strange words as “structur” and “biologi” instead of “structure” and “biology”. This is the result of <a href="https://en.wikipedia.org/wiki/Word_stem">stemming</a>. “structure”, “structural”, “unstructured” and so on has the common stem “structur”.</p>
-<p>{{% alert warning %}} Unfortunately some htmlwidgets have problems with blogdown and the issue is not resolved yet. I have to avoid using wordcloud2 or DataTable, but as soon as they will be available for blogdown, I will update this post. Until that, you can try them on your own computer. {{% /alert %}}</p>
 <p>For a fancy graph, let’s use the <code>wordcloud2</code> package.</p>
 <pre class="r"><code>library(wordcloud2)
 
@@ -250,8 +249,6 @@ ngrams_2 %&gt;%
   geom_bar(stat = &quot;identity&quot;) +
   theme(axis.text.x = element_text(angle = 270, hjust = 0, vjust = 0.5))</code></pre>
 <p><img src="/post/2017-08-08-how-to-give-title-to-your-top-journal-science-article_files/figure-html/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>## Warning in if (class(data) == &quot;table&quot;) {: the condition has length &gt; 1 and
-## only the first element will be used</code></pre>
 <div id="htmlwidget-3" style="width:100%;height:350px;" class="widgetframe html-widget"></div>
 <script type="application/json" data-for="htmlwidget-3">{"x":{"url":"/post/2017-08-08-how-to-give-title-to-your-top-journal-science-article_files/figure-html//widgets/widget_unnamed-chunk-18.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
 <p>From this, it is very clear <em>Nature</em>’s main focus is on stem cells. The second place is climate change, but still ~2.75x less occurrence then the winner. “Crystal structure” and “structural basis” are mainly protein or polymer structures, which is a very popular field. If you are working in <strong>material science</strong>, better to go with these, or at least with carbon nanotubes</p>
