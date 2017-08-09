@@ -61,7 +61,7 @@ nature_articles(v = 543, n = 7645)
 ```
 
 {{% alert note %}}
-This selectors are only valid for issues since 2010. Before that you have to use different selector, but only until 1998. Before that It is also different and because the old static style of those sites, it is impossible (or at least very difficult) to fish out only the titles. If you want to play with the titles in 1998-2017 March, I uploaded a file [here](static/post/2017-08-08-how-to-give-title-to-your-top-journal-science-article_files/nature_articles_1998_2017.csv) with the data. 
+This selectors are only valid for issues since 2010. Before that you have to use different selector, but only until 1998. Before that It is also different and because the old static style of those sites, it is impossible (or at least very difficult) to fish out only the titles. If you want to play with the titles in 1998-2017 March, I uploaded a file [here](https://palfalvi.org/static/post/2017-08-08-how-to-give-title-to-your-top-journal-science-article_files/nature_articles_1998_2017.csv) with the data. 
 {{% /alert %}}
 
 
@@ -187,6 +187,20 @@ word_count %>%
 
 ```
 
+```{r, message=FALSE, warning=FALSE, echo = FALSE, fig.align='center'}
+library(wordcloud2)
+
+word_count %>%
+  wordcloud2(backgroundColor = "black", color = 'random-light', shape = 'circle', gridSize = 6) -> wc1
+
+frameWidget(wc1, width = "100%", height = "350")
+```
+
+ 
+</br>
+ 
+And in a little more usual form:
+
 
 ```{r}
 word_count %>%
@@ -214,7 +228,9 @@ all_title %>%
 all_title %>%
   unnest_tokens(word, value, token="ngrams", n = 2) %>% 
   filter( stringr::str_detect(string = .$word, pattern = "[C|c]ell[s]*") == TRUE)  %>% 
-  count(word, sort = TRUE) 
+  count(word, sort = TRUE) %>% DT::datatable() -> dt1
+
+frameWidget(dt1, width = "95%", height = "350")
 
 ```
 
@@ -235,7 +251,7 @@ Interestingly the first article with "single cell" in the title just appeared in
 
 Also let's have a look on every 2-grams. Here I also separate the 2 words first to remove every stop word containing lines and stem them. Also "science" appears so many times due to article type headers, like "Material Science", "Earth Science", "Climate Science" and so. Because of this reason I filter lines, which contains "science". For similar reason let's delete lines with "review", "highlight", "research", "biology", "physics", "journal club",  "...et al.: reply", and "50", "100". These numbers from the series "50 and 100 years ago"
 
-```{r, error = FALSE}
+```{r, error = FALSE, warning = FALSE}
 all_title %>%
   unnest_tokens(word, value, token="ngrams", n = 2) %>% 
   separate(word, into = c("word1", "word2")) %>% 
@@ -254,10 +270,16 @@ ngrams_2 %>%
   ggplot(aes(x = reorder(word, -nn), y = nn)) +
   geom_bar(stat = "identity") +
   theme(axis.text.x = element_text(angle = 270, hjust = 0, vjust = 0.5))
+```
 
-# ngrams_2 %>%
-#   head(500) %>%
-#   wordcloud2(backgroundColor = "black", color = 'random-light', shape = 'circle', gridSize = 6)
+
+```{r, echo = FALSE}
+
+ngrams_2 %>%
+  head(500) %>%
+  wordcloud2(backgroundColor = "black", color = 'random-light', shape = 'circle', gridSize = 6) -> wc2
+
+frameWidget(wc2, width = "100%", height = "350")
 
 ```
 
@@ -320,17 +342,19 @@ model_orgs <- c(
   "yeast"
 )
 
-all_words %>% 
-  filter(word %in% model_orgs) %>%
-  count(word, sort = TRUE) %>%
-  ggplot(aes(x = reorder(word, -nn), y = nn)) +
-  geom_bar(stat = "identity") +
-  theme(axis.text.x = element_text(angle = 270, hjust = 0, vjust = 0.5))
-
 # all_words %>% 
 #   filter(word %in% model_orgs) %>%
 #   count(word, sort = TRUE) %>%
-#   wordcloud2(backgroundColor = "black", color = 'random-light', shape = 'circle', gridSize = 6, size = 0.9)
+#   ggplot(aes(x = reorder(word, -nn), y = nn)) +
+#   geom_bar(stat = "identity") +
+#   theme(axis.text.x = element_text(angle = 270, hjust = 0, vjust = 0.5))
+
+all_words %>% 
+  filter(word %in% model_orgs) %>%
+  count(word, sort = TRUE) %>%
+  wordcloud2(backgroundColor = "black", color = 'random-light', shape = 'circle', gridSize = 6, size = 0.9) -> wc3
+
+frameWidget(wc3, "100%", "350")
 ```
 
 
