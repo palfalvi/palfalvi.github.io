@@ -1,0 +1,40 @@
+---
+title: New test for widgetframe
+author: Gergo Palfalvi
+date: '2017-08-09'
+slug: new-test-for-widgetframe
+categories: test
+tags: test
+summary: test for the updated widgetframe
+---
+
+Testing the updated [widgetFrame](https://github.com/bhaskarvk/widgetframe) package.
+
+```{r}
+library(widgetframe)
+library(htmlwidgets)
+library(DT)
+data(iris)
+iris %>% DT::datatable() -> dt
+
+frameWidget(targetWidget = dt, width = "98%", height = "400")
+```
+
+
+```{r}
+library(wordcloud2)
+
+wordcloud2(data = demoFreq) -> wc
+
+frameWidget(targetWidget = wc, width = "98%", height = "400")
+```
+
+
+```{r}
+library(highcharter)
+highcharts_demo() %>% 
+  hc_add_theme(hc_theme_chalk()) -> hc
+
+frameWidget(targetWidget = hc, width = "98%", height = "400")
+```
+
