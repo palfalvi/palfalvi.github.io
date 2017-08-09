@@ -187,16 +187,6 @@ word_count %>%
 
 ```
 
-```{r, message=FALSE, warning=FALSE, echo = FALSE}
-library(wordcloud2)
-
-word_count %>%
-  wordcloud2(backgroundColor = "black", color = 'random-light', shape = 'circle', gridSize = 6) -> wc1
-
-frameWidget(wc1, height = 400, width = '95%')
-
-```
-
 
 ```{r}
 word_count %>%
