@@ -1,0 +1,23 @@
+---
+title: Comparing RNA-seq quantification methods
+author: Gergo Palfalvi
+date: '2017-12-14'
+slug: comparing-rna-seq-quantification-methods
+categories:
+  - R
+  - shell
+  - RNAseq
+tags:
+  - bioinformatics
+  - science
+  - RNA
+---
+
+I am in front of some big decisions now for my experiments, data analysis. One of them is the analysis of hundreds of RNA-seq data simultenaously, which can be a bit tricky. I would like to compare some alignment-free and alignment dependent RNA-seq counting methods to choose for my pipeline. The tools I compare here:
+
+* kallisto
+* salmon
+* STAR-HTseq
+* TopHat2-Cufflinks
+
+The dataset I will try to work with is a published RNA-seq of the flat leaf and pitcher of __Cephalotus follicularis__ from [this publication](https://www.nature.com/articles/s41559-016-0059).
