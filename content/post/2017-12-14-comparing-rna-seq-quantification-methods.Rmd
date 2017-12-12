@@ -3,6 +3,7 @@ title: Comparing RNA-seq quantification methods
 author: Gergo Palfalvi
 date: '2017-12-14'
 slug: comparing-rna-seq-quantification-methods
+draft: true
 categories:
   - R
   - shell
