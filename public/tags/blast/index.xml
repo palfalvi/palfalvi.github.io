@@ -2,12 +2,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Blast on R for Biology</title>
-    <link>/tags/blast/index.xml</link>
+    <link>/tags/blast/</link>
     <description>Recent content in Blast on R for Biology</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2017 Gergo Palfalvi</copyright>
-    <atom:link href="/tags/blast/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 16 Mar 2017 00:00:00 +0000</lastBuildDate>
+    <atom:link href="/tags/blast/" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Remake BLAST graphical output in R</title>

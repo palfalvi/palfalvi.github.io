@@ -4,16 +4,16 @@
     
     
     <url>
-      <loc>/post/testing-htmlwidgets/</loc>
-      <lastmod>2017-05-17T00:00:00+00:00</lastmod>
+      <loc>/post/jellybean-mistakes-1-intro/</loc>
+      <lastmod>2018-11-07T00:00:00+00:00</lastmod>
     </url>
     
   
     
     
     <url>
-      <loc>/post/complexity-in-biology/</loc>
-      <lastmod>2017-05-16T00:00:00+00:00</lastmod>
+      <loc>/post/q-a-time/</loc>
+      <lastmod>2017-10-11T00:00:00+00:00</lastmod>
     </url>
     
   
@@ -21,7 +21,7 @@
     
     <url>
       <loc>/post/how-to-give-title-to-your-top-journal-science-article/</loc>
-      <lastmod>2017-03-23T00:00:00+00:00</lastmod>
+      <lastmod>2017-08-08T00:00:00+00:00</lastmod>
     </url>
     
   
@@ -133,31 +133,8 @@
     
     
     <url>
-      <loc>/post/widget_unnamed-chunk-12/</loc>
-    </url>
-    
-  
-    
-    
-    <url>
-      <loc>/post/widget_unnamed-chunk-14/</loc>
-    </url>
-    
-  
-    
-    
-    <url>
       <loc>/tags/bioinformatics/</loc>
-      <lastmod>2017-05-16T00:00:00+00:00</lastmod>
-      <priority>0</priority>
-    </url>
-    
-  
-    
-    
-    <url>
-      <loc>/tags/biology/</loc>
-      <lastmod>2017-05-16T00:00:00+00:00</lastmod>
+      <lastmod>2018-11-07T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -166,7 +143,7 @@
     
     <url>
       <loc>/categories/biology/</loc>
-      <lastmod>2017-05-16T00:00:00+00:00</lastmod>
+      <lastmod>2018-11-07T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -193,6 +170,7 @@
     
     <url>
       <loc>/categories/</loc>
+      <lastmod>2018-11-07T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -202,15 +180,6 @@
     <url>
       <loc>/tags/cephalotus/</loc>
       <lastmod>2017-03-01T00:00:00+00:00</lastmod>
-      <priority>0</priority>
-    </url>
-    
-  
-    
-    
-    <url>
-      <loc>/tags/complexity/</loc>
-      <lastmod>2017-05-16T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -237,16 +206,7 @@
     
     <url>
       <loc>/tags/nature/</loc>
-      <lastmod>2017-03-23T00:00:00+00:00</lastmod>
-      <priority>0</priority>
-    </url>
-    
-  
-    
-    
-    <url>
-      <loc>/tags/network/</loc>
-      <lastmod>2017-05-16T00:00:00+00:00</lastmod>
+      <lastmod>2017-10-11T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -255,7 +215,7 @@
     
     <url>
       <loc>/categories/post/</loc>
-      <lastmod>2017-05-16T00:00:00+00:00</lastmod>
+      <lastmod>2017-03-07T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -281,8 +241,16 @@
     
     
     <url>
+      <loc>/publication_types/</loc>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    
+    <url>
       <loc>/tags/r/</loc>
-      <lastmod>2017-03-23T00:00:00+00:00</lastmod>
+      <lastmod>2018-11-07T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -291,7 +259,7 @@
     
     <url>
       <loc>/categories/r/</loc>
-      <lastmod>2017-03-23T00:00:00+00:00</lastmod>
+      <lastmod>2018-11-07T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -327,7 +295,7 @@
     
     <url>
       <loc>/tags/rvest/</loc>
-      <lastmod>2017-03-23T00:00:00+00:00</lastmod>
+      <lastmod>2017-08-08T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -336,7 +304,7 @@
     
     <url>
       <loc>/tags/science/</loc>
-      <lastmod>2017-03-23T00:00:00+00:00</lastmod>
+      <lastmod>2018-11-07T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -372,6 +340,7 @@
     
     <url>
       <loc>/tags/</loc>
+      <lastmod>2017-01-01T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -380,7 +349,7 @@
     
     <url>
       <loc>/tags/tidytext/</loc>
-      <lastmod>2017-03-23T00:00:00+00:00</lastmod>
+      <lastmod>2017-08-08T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -389,7 +358,7 @@
     
     <url>
       <loc>/tags/web-scraping/</loc>
-      <lastmod>2017-03-23T00:00:00+00:00</lastmod>
+      <lastmod>2017-08-08T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -397,8 +366,8 @@
     
     
     <url>
-      <loc>/tags/worldcloud/</loc>
-      <lastmod>2017-03-23T00:00:00+00:00</lastmod>
+      <loc>/tags/wordcloud/</loc>
+      <lastmod>2017-08-08T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
     

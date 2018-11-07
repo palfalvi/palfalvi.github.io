@@ -2,64 +2,133 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Bioinformatics on R for Biology</title>
-    <link>/tags/bioinformatics/index.xml</link>
+    <link>/tags/bioinformatics/</link>
     <description>Recent content in Bioinformatics on R for Biology</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2017 Gergo Palfalvi</copyright>
-    <atom:link href="/tags/bioinformatics/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 07 Nov 2018 00:00:00 +0000</lastBuildDate>
+    <atom:link href="/tags/bioinformatics/" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>Complexity in biology</title>
-      <link>/post/complexity-in-biology/</link>
-      <pubDate>Tue, 16 May 2017 00:00:00 +0000</pubDate>
+      <title>Jellybean mistakes 1: Intro</title>
+      <link>/post/jellybean-mistakes-1-intro/</link>
+      <pubDate>Wed, 07 Nov 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/complexity-in-biology/</guid>
-      <description>&lt;!-- BLOGDOWN-HEAD --&gt;
-&lt;!-- /BLOGDOWN-HEAD --&gt;
-
-&lt;!-- BLOGDOWN-BODY-BEFORE --&gt;
-&lt;!-- /BLOGDOWN-BODY-BEFORE --&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;em&gt;I think the next century will be the century of complexity.&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;by Stephen Hawking at 2000. January&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;That century is here, we already passed 17 years of it and it looks Hawking was right. We dig into complexity, we generate huge amount of data and easily share everything. Biology is not an exceptation, NGS (New Generation Sequencing) techniques allow us to have mass amount of nucleotide sequence data from different kind of sequencing, most popularly WGS (Whole Genome Sequencing) and RNA-seq. However these generates massive amount of information, most of the biologists tend to still select and focus on one or maximum a few single genes, usually transcription factors (TF). This is somehow understandable, since we are in the middle of a &lt;strong&gt;paradigm shift&lt;/strong&gt; where biology will transform from a qualitaty-driven science to a quantitative science. What does it mean? In biology it was (and is) widely accepted to describe a phenomena with only words. Statistics class is already integrated in biology teaching, but what about &lt;strong&gt;bioinformatics&lt;/strong&gt;? It is not widely teached and also often treated as a “black sheep”. There is a &lt;a href=&#34;http://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.2002050&#34;&gt;nice article&lt;/a&gt; in the topic written by &lt;a href=&#34;http://www.markowetzlab.org/&#34;&gt;Florian Markowetz&lt;/a&gt;.&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;em&gt;“Pipette biologist. Microscopy biologist. Cell culture biologist. Have you ever heard any of those job titles? No, of course not. All are biologists, because it is the questions you address that matter, not the tools you use, and computational biologists are just biologists using a different tool.”&lt;/em&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;Anyway, more and more student wants to work with “sexy” tools in biology, including genomic sciences, but universities in general are not ready to prepare them for these things. I was in very similar situation in a few years, our bioinformatics class was exhausted in a few online BLAST search while I was already working with RNA-seq data analysis. For me there is a special field I am love with and want to understand and apply: &lt;strong&gt;Network science&lt;/strong&gt; or Systems biology, network biology. And also there is a twist in the story, since I do not work with regular model plants, like Arabidopsis or Rice. For them there are many types of networks available including protein-protein interaction, metabolic or just a simple co-expression. For a non-model or emerging model plant nothing is available and the most easiest things to do are genome sequencing and transcriptomic data. Draw and analyse network from transcriptomic data is not a well-established , highly evolving part of biology, but can open mush more information then a simple differential gene expression analysis. The 4 big steps in gene regulatory network (GRN) inference analysis:&lt;/p&gt;
-&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
-&lt;li&gt;Experimental design and mass-information production (RNA-seq, sRNA-seq, ChIP-seq etc.)&lt;/li&gt;
-&lt;li&gt;GRN building&lt;/li&gt;
-&lt;li&gt;Topological analysis of the network&lt;/li&gt;
-&lt;li&gt;Analyse network dinamics&lt;/li&gt;
-&lt;/ol&gt;
-&lt;div id=&#34;experimental-design-and-mass-information-production&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Experimental design and mass-information production&lt;/h2&gt;
-&lt;p&gt;It is important to design the sample collection in the aim of your study. If the phenomena remains hidden possibly we still can build a network from the data and analyse it, but the our main interest can be invisible or hidden.&lt;br /&gt;
-Also we can think the level of the regulation in the GRN. With RNA-seq we can see expressional dependencies between genes (either linear or non-linear relationships). smallRNA-seq allows to incorporate sRNA regulation level, which can add a direct negative link to the target (especially if we have quantitative sRNA-seq data). with Chromatin Immunprecipitation coupled with NGS sequencing (ChIP-seq) we can get direct transcriptional regulatory motifs from DNA-binding proteins (mainly transcriptional factors and histone variants/modifications). There are several other techniques we can expand our dataset even with genetic or epigenetic regulators.&lt;/p&gt;
+      <guid>/post/jellybean-mistakes-1-intro/</guid>
+      <description>&lt;p&gt;You are asking, what is “jellybean mistakes” and how it is connected to R, biology and statistics? I took this title following &lt;a href=&#34;https://xkcd.com/882/&#34;&gt;this xkcd comic&lt;/a&gt;:&lt;/p&gt;
+&lt;div class=&#34;figure&#34;&gt;
+&lt;img src=&#34;https://imgs.xkcd.com/comics/significant.png&#34; alt=&#34;Significant - https://xkcd.com/882/&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;Significant - &lt;a href=&#34;https://xkcd.com/882/&#34; class=&#34;uri&#34;&gt;https://xkcd.com/882/&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
-&lt;div id=&#34;grn-building&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;GRN building&lt;/h2&gt;
-&lt;p&gt;Probably this is the most difficult part, since there is no “gold standard” method and newer and better methods are continously appearing day-by-day. However I list a few methods/packages for R or Python which can be useful if you are thinking to perform some GRN inference.&lt;/p&gt;
-&lt;p&gt;First of all I can recommend the &lt;a href=&#34;http://dreamchallenges.org/&#34;&gt;DREAM&lt;/a&gt; GRN Inference paper: &lt;a href=&#34;https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3512113/&#34;&gt;&lt;em&gt;Wisdom of crowds for robust gene network inference&lt;/em&gt;&lt;/a&gt; and &lt;a href=&#34;http://barabasi.com&#34;&gt;Albert-Laszlo Barabasi’s webpage&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Interesting packages:&lt;/p&gt;
+&lt;p&gt;As you can see, green jellybeans are bad for your skin if you believe of this testing method and the somewhat ridiculous &lt;code&gt;p &amp;lt; 0.05&lt;/code&gt; cutoff (but more on this in a later post).&lt;/p&gt;
+&lt;p&gt;Jellybean can also refer to someone who is hard headed but has no bad intention in the inside. Some cases the mistakes came from these kind of people, as they had learnt one or another way to do something and they find it extremely difficult to change, even if it is not an appropriate way to do things.&lt;/p&gt;
+&lt;p&gt;In the way to discuss and -hopefully- correct these mistakes, I will show every statistical method and plotting in &lt;strong&gt;&lt;code&gt;R&lt;/code&gt;&lt;/strong&gt;, so &lt;em&gt;you&lt;/em&gt; can reproduce and even use for your own purpose.&lt;/p&gt;
+&lt;p&gt;Here I would like to pinpoint a few topics I will go through in one or several posts in the future, as part of this post series:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;igraph&lt;/li&gt;
-&lt;li&gt;RedeR&lt;/li&gt;
-&lt;li&gt;WGCNA&lt;/li&gt;
-&lt;li&gt;Genie3&lt;/li&gt;
-&lt;li&gt;CLR&lt;/li&gt;
-&lt;li&gt;ARACNE&lt;/li&gt;
-&lt;li&gt;MRNET&lt;/li&gt;
-&lt;li&gt;Infelerator/cMonkey&lt;/li&gt;
-&lt;li&gt;NIMEFI&lt;/li&gt;
-&lt;li&gt;Tigress&lt;/li&gt;
-&lt;li&gt;netter&lt;/li&gt;
-&lt;li&gt;GRACE&lt;/li&gt;
+&lt;li&gt;p-value for decision making&lt;/li&gt;
+&lt;li&gt;p-hacking&lt;/li&gt;
+&lt;li&gt;sample size and selected outliers&lt;/li&gt;
+&lt;li&gt;box plots and error-bars&lt;/li&gt;
+&lt;li&gt;correlation and causation&lt;/li&gt;
+&lt;li&gt;line fitting and &lt;span class=&#34;math inline&#34;&gt;\(R^2\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;linear model symmetries&lt;/li&gt;
 &lt;/ul&gt;
-&lt;/div&gt;
+&lt;p&gt;If you have any interesting topic to discuss or want to hear about, please write in the comments!&lt;/p&gt;
+&lt;p&gt;See you soon in the next post!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Q&amp;A time</title>
+      <link>/post/q-a-time/</link>
+      <pubDate>Wed, 11 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/post/q-a-time/</guid>
+      <description>&lt;p&gt;Recently I got the opportunity to attend to &lt;a href=&#34;https://www.soken.ac.jp/en/&#34;&gt;SOKENDAI’s&lt;/a&gt; Freshmen course as a student committee member with 7 other students from various fields (from ethnomusicology, through space science to informatics). We helped to organize some activity to warm up new students and also presented our research fields. I really enjoyed to interact with nearly 50 new internation students, who just started their life in Japan. I hope I could make enough effort to help them enjoy these few days.&lt;/p&gt;
+&lt;p&gt;In this post I would like to anser all the questions I got after my presentation, since we did not have time for everyone’s question. If you have any other question, you can ask me in comment or through e-mail. Let’s see the questions:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;1. Why did you choose pitcher plant?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I was really amazed by carnivorous plants since I was a child. On science they catched me because of their complexity, elegancy and mistery.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2. Please tell me, how do you spend your free time.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I like cooking, especially with my girlfriend. Also I watch several series, go out to explore the neighbourhood or just read.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;3. Is digestion mechanism of carnivorous plants same as ours?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Actually there is a lot of similarities, like the very acidic fluid with several hydrolases, however the actual enzyme set differs between animals and plants. Also carnivorous plants can use H&lt;sub&gt;2&lt;/sub&gt;O&lt;sub&gt;2&lt;/sub&gt; and specific plant enzymes, like chitinase.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;4. How do you distinguish phenotype you observed was evolution not mutation?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Mutation is random, and cannot set up a whole new organ with reproductive development. However evolution is a consequence from chains of mutations and selections.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;5. Have you ever observed pitcher plant in real or some other plants with similar nature?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Unfortunatelly I could never see Albany pitcher plant &lt;em&gt;in situ&lt;/em&gt; in Australia, but i saw several other carnivorous plants in Australia, Hungary, Japan and Romania.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;6. I used to think that biology students have to collect the plants by themselves and go back to the lab to study them. So how do you work in your lab?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I do not collect my plants from wild, the easiest way is to purchase from a certified nursery or research center. For genetic/genomic/molecular biology studies we also try to keep the genetic background unchanged. It means, we established a line, and we maintain that with vegetative propagation.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;7. What will you do after you finish this research topic?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I think to finish the whole topic is impossible. In science if we generate an answer, that will trigger several new questions. I already have some questions I would like to answer in the future. Also I can recommend to always think in a “plan B”, if something unexpected delay happens with your main work.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;8. How do you assign your time respectively for research in lab and entertainment outside?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I do had to force myself to regulate my time. Continuous overworking is not effective, your brain and mind will be tired and cannot work as well as a fresh mind. My rule is to try to finish work between 5pm and 7pm (I start at 9am) and avoid to work on weekends.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;9. How is the distribution of the pitcher plant in the world?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;There are 3 main pitcher plants in different families. The one I am working with ( &lt;em&gt;Cephalotus&lt;/em&gt;) is from a very limited habitat in SW-Australia. &lt;em&gt;Nepenthes&lt;/em&gt; is the tropical pitcher plant, can be found in Indonesia, NE-Australia, India and Madagascar. The third type of pitcher plants are &lt;em&gt;Sarracenia&lt;/em&gt; and &lt;em&gt;Darlingtonia&lt;/em&gt; from North-America and &lt;em&gt;Heliamphora&lt;/em&gt; from S-America.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;10. How do you study different academic areas and integrate them?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;It is a bit difficult to keep up with several communities, but you can benefit a lot if you understand several disciplina and can breed them to create something new and outstanding. As for data science, statistics and informatics, there are loads of online resources and active communities you can ask and learn from.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;11. Can you explain more about genome?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Genome is the DNA content in a cell, which codes in a chemical sequence the informatin needed to regulate and express genes. Genes will eventually produce proteins, which are the “workers” of the cells, making structures, regulations, signal perceptions and transductions, catalyse metabolic precesses and so on.&lt;/p&gt;
+&lt;p&gt;If you follow my book analogy, then the genome is the dictionary: contains the words (genes) and the description, how to use them. If you would like to process to a specific developmental process, like making skin cells, you need to know which words/genes you should use and in what order, in what context. Finally you got a bunch of words and expression in an appropriate order. A book about “How to make skin cells”.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;12. What challanges do you face in your research?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;There is a lot. Probably the biggest challange is to establish a new model organism and produce enough reliable result to be useful not only for me, but for future researchers.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;13. Is transcriptome of pitcher leaf and flat leaf known? If so, what differences did you find?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;It is known and described in our paper: Fukushima et al, Genome of the pitcher plant Cephalotus reveals genetic changes associated with carnivory, Nature Ecology &amp;amp; Evolution (2017).&lt;/p&gt;
+&lt;p&gt;In shortly, pitcher has a lot of digestive-related enzymes, higher wax synthesis, while flat leaf has higher rate of photosynthetic genes’ expression. In more details it is still under investigation.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;14. Why are you interested in biology?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I was very impressed with the complexity of life and would like to understand how this complexity evolved and works.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;15. Do you specifically study the interactions of genes that affect the formation of either a pitcher or a flat leaf?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I study how different environmental factors affect gene expression (including all genes) and how it is corresponds to phenotypic answer. Eventually I would like to find the regulatory mechanisms how a pitcher can form.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;16. After one leaf dies, does the new leaf become the same type of leaf or change the leaf type depending on environment?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;It is independent of previous leaf types, the plant integrates current environmental signals and make a new decision for the newly developing leaves continously.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;17. How interesting do you find to work with carnivorous plants?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I am amazed by carnivorous plants and really glad I could start my PhD working on the topic I choosed. This passion gives higher motivation on work for me.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;18. Are there any applications of this research in human systems?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;As for the bioinformatics part in developmental process in genomic context, mammalian white blood cell differentiation is the mainstream with single cell transcriptome analysis. I hope the analysis method I construct will be applicable for any organisms.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;19. Is basic biology only contains plants?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;No. You can work with animals, plants, fungi, bacteria but even with only theoretical biology or computer simulation you can work on questions from basic biology.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;20. Have you ever been stuck in research? How did you deal with that?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Yes, of course. In my opinion there are two ways to deal with this situation. First, you should leave it for a while. For a few days or weeks and work on some other part until that. After you go back for the part you struggled, you can think in a different angle or with new ideas in this case. The second method is more difficult for some cases, because this method is to ask help from others. Do not hesitate to discuss your problem with professors, postdocs, but even with other students or friends.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;21. Why &lt;em&gt;Cephalotus&lt;/em&gt; relies on stocahstic determination of two leaf types rather then pure genetic way?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;It is pure genetic way. For differentiation you often need external factors to decide the cell fate, which can come from environmental factors (like how temperature decides the sex of a crocodile in the egg) or from cell-cell interactins, like how white blood cells are differentiating continuously in your body based on the properties of neighbouring cells, or from internal, chemical environment, like pH or hormones, like how plant vascular elemts are differentiating. The stochastic property comes from the fluctuation of several internal- and external factors.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;22. Can we measure the amount of data stored in a single cell?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Using real single cells for genomic or transcriptomic studies is not impossible but also not easy. Current limiting factors contain the difficulty to isolate intact single cells from their tissue context without modifying any of it’s properties.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;23. What is the happiest thing you find during your research?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;When I understand something new, especially if I am the first who described and understood the phenomena. Also I find it very important to promote science for young people, so I did and will do several activities for young people to “plant the seeds of science”.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;24. What is the most important fundamental question in basic biology?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Basic biology is very diverse field, it is difficult to answer. I think one of the biggest question is how cells can change their fate. It includes development, reprogramming, division axis change, differentiation and even cancer.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;25. How to exploit computational tools in bioinformatics?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Recent trend in biology generates TB and PB scale data with sequencing technologies. We can benefit from several machine learning and statistical improvement from recent years. For example if you think about the genome, as a language, which has start and stop points for genes, specific motif, overrepresented areas, etc., we can apply several language processing apploications for better predictions. Also numerical data, like expression count can use several novel correlation methods since its non-linear and variable trending properties.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;26. Did you plant your plants for experiments? How many of them you need to make your result statistically significant?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;We propagate our plants vegetatively in aseptic cultures. We plan to sequence hundreds of organs to be able to establish a propere inference from it.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;27. Why and when did you begin to be interested in carnivorous plants? How many kinds of carnivorous plants grow in Hungary?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I was in elementary school when I got my first sundew. No need to say, it did not live long. My research interest for them woke up when i started my bachelor degree in biology and it is just growing since then. In Hungary we can find at least 7 native carnivorous plant species.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;28. What is the relationship between human and botanics?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;It is difficult to understand this questions. But definitely human has a feeling for plants. When you go out and see the greens, the yellows, the flowers and leaves, people feel better. Also their are the primary energy source on Earth, they can transform the energy from sunlight to chemical energy, namely sugars. Also there are countless applications of plants, like clothes, building and furniture materials, medicines, decorations and so on.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;29. What is the result of not giving insects to carnivorous plants?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;They can normally grow without extra feeding, they will keep carnivorous structures and behaviours. Feeding can increase their fitness (leaf size, seed size, seed amount, etc.).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;30. We only hace 3 or 5 years to do PhD. Is it ok if we choose research topic which is integrating from different fields?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;It is really beneficial for you and for your future. You can approach a problem from different point of views and apply techniques which was not available in certain fields. Eventually every new science fields comes from an interdisciplinary initiation.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;31. Does the flat leaf has more photosynthetic power?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Even if we do not see the actual capacity for photosynthesis, the flat structure allows to harvest light at near 90° while in a complex 3D pitcher it is a much lower angle which decreases the energy available from the same amount of light.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;32. What is the most difficult step in your research process?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;There are several difficult steps. Mainly the most influential is to design the experiments and properly sample the plants. These will generate the data I have to deal with later and I cannot change from that point, so it is very critical to do it properly.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;33. What decides a cell to be a particular cell?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;If you follow the book analogy, then the genome is the dictionary, which contains the words (= genes) and the description, how to use them (= regulatory elements). If you want to constract a working process, a sentence, you need to put the proper words in proper order. If you put several of these in a context, finally you get a book. How a cell decides what words or sentences to put? It is done by external (environment, tissue, neighbouring cells, chemicals, pH, hormones, etc.) and internal (differentiation stage, potency, internal chemical environment, availabel “factors”, etc.).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;34. Do all carnivorous plants have similar structures?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;No, there are several types of traps, some of them can move really fastly and generates electrical stimuli similar to a neuron. Biggest part of them has sticky leaves, some has pitchers in different representations, some hose underwater vacuum traps.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;35. Do you like gardening?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Yes, I like. I had several exotic plants ant trees when I lived in Hungary. Also I volunteered in a botanical garden to help maintain their collections and also to lead tours for groups.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;36. Can you explain “stochastic determination”?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Stochastic determination means we can infer the probability to grow pitcher leaves in a particular condition, but it is never deterministic (100% sure). Let’s say, it is 80% pitchers and 20% flat leaves, then we cannot expect the order, but the overall distribution of the leaf types.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;37. Do you belive there is a “Designer” (e.g. God) or everything can be explained by science/biology?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I do not belive in any supreme being, like god, but I do respect if anyone has a belief. However I also want to clarify it is important to separate “I understand” and “I belive”. In science we do not belive, we know things, understand, proved and so on. Science and belief can co-exist until you do not try to mix up these terms.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;38. I wonder how to make models for computer based simulations on creatures.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;There are several models for biological systems, especially in ecological and neurological context. Deep neural network is modelled based on how neurons work in our brain. To simulate a whole organism, you have to implement all the known adn unknown factors which can affect the outcome, so it is pretty difficult. For more simple models, we can quantify the imputs we manipulating and the outputs (even in expression count or phenotypyc changes) and set up a model for the system. This is really common nowdays.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;39. How to get data? Using a lot of carnivorous plants?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;As for phenotypic data, we need to use a lot of plants. Like we can measure the dimensions of every leaf. For genomic data, we have to isolate RNA from the cells and using specific technologies, sequence them. After that, we can quantify the representation of each genes in that experimental context. Now you have a count data for 20-30 thousend of genes, and you just used one plant. We sequence in very big amount to get response from several conditions, then try to correlate the environmental changes, the phenotypic changes and the genetic changes.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;40. Could you briefly introduce how to quantify biology?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;There is a description in the previous question. The idea is to measure more direct actions, like gene expression changes next to phenotypic (outlook) changes. Overall those expressions regulates the outlook. It is also important to measure everything instead of a simple description. If you want to say the leaves in one condition are bigger then in the other, measure the leaves and set up a model to the leaf size based on the condition. Now we are able to do this in big scale with high throughput sequencing and in a more “precise” reaction, on gene expression.&lt;/p&gt;
 </description>
     </item>
     

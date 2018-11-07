@@ -2,12 +2,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Shiny on R for Biology</title>
-    <link>/categories/shiny/index.xml</link>
+    <link>/categories/shiny/</link>
     <description>Recent content in Shiny on R for Biology</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2017 Gergo Palfalvi</copyright>
-    <atom:link href="/categories/shiny/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 09 Mar 2017 00:00:00 +0000</lastBuildDate>
+    <atom:link href="/categories/shiny/" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Local BLAST from R</title>
