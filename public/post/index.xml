@@ -11,6 +11,132 @@
     <atom:link href="/post/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>jellybean mistakes 2 barplots</title>
+      <link>/post/jellybean-mistakes-2-barplots/</link>
+      <pubDate>Wed, 13 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/jellybean-mistakes-2-barplots/</guid>
+      <description>&lt;p&gt;Let’s dig into the problem of barplots and where to use them, but most importantly where to avoid them. First look into the &lt;code&gt;anscombe&lt;/code&gt; data to understand what is the problem with hiding the actual points and showing only a few ambiguous descriptive values about the dataset.&lt;/p&gt;
+&lt;div id=&#34;the-problem-with-anscombes-quartet&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;The problem with Anscombe’s quartet&lt;/h2&gt;
+&lt;p&gt;Let’s start with putting the data in a more tidy shape.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ansc_tidy &amp;lt;- anscombe %&amp;gt;% 
+  gather(axis, value) %&amp;gt;%
+  separate(axis, c(&amp;quot;axis&amp;quot;, &amp;quot;group&amp;quot;), 1)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Our data consist of four independent measurments (&lt;code&gt;group&lt;/code&gt;) which each consist of 2 connected points, x and y (&lt;code&gt;axis&lt;/code&gt;). Now let’s see what we have with a barplot and error bars showing the standard deviations.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ansc_tidy %&amp;gt;%
+  ggplot(aes(x = group, y = value, fill = axis, color = axis)) +
+  stat_summary(fun.y = &amp;quot;mean&amp;quot;, geom = &amp;quot;bar&amp;quot;, position = &amp;quot;dodge&amp;quot;, alpha = 0.2) + 
+  stat_summary(geom = &amp;quot;errorbar&amp;quot;, fun.data = mean_se, position = position_dodge(0.9), width = 0.2)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-02-13-jellybean-mistakes-2-barplots_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;That’s interesting, all 4 groups look identical for both x and y values in the case of mean and SD. But are they really that similar? Keep the barplots and put some jittered dot with the actual data on them.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ansc_tidy %&amp;gt;%
+  ggplot(aes(x = group, y = value, fill = axis, color = axis)) +
+  stat_summary(fun.y = &amp;quot;mean&amp;quot;, geom = &amp;quot;bar&amp;quot;, position = &amp;quot;dodge&amp;quot;, alpha = 0.2) + 
+  stat_summary(geom = &amp;quot;errorbar&amp;quot;, fun.data = mean_se, position = position_dodge(0.9), width = 0.2) +
+  geom_point(position = position_jitterdodge(jitter.width = 0.2, jitter.height = 0, dodge.width = 0.8))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-02-13-jellybean-mistakes-2-barplots_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Now we can see some striking differences. The first and most strongest maybe is the 4th group’s x data, where the ponts are identical except one extreme value. As for the y data, you can see some more compressed data in the 2nd group and some outliers in the 3rd and 4th case.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;better-representation-of-data&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Better representation of data&lt;/h2&gt;
+&lt;p&gt;The next question would be, if we cannot trust barplots with errorbars, what representation we should use. One better step is presented above, when you keep the barplots with error bars and plot the actual data on top of it.&lt;/p&gt;
+&lt;div id=&#34;boxplots&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Boxplots&lt;/h3&gt;
+&lt;p&gt;Maybe one of the best choice could be boxplots. There you plot much more descriptive values which are also less sensitive to outliers (mean vs median).&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ansc_tidy %&amp;gt;%
+  ggplot(aes(x = group, y = value, fill = axis, color = axis)) +
+  geom_boxplot(alpha = 0.2)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-02-13-jellybean-mistakes-2-barplots_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;One extra step can be if you add the raw data points here too.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ansc_tidy %&amp;gt;%
+  ggplot(aes(x = group, y = value, fill = axis, color = axis)) +
+  geom_boxplot(alpha = 0.2) +
+  geom_point(position = position_jitterdodge(jitter.width = 0.1, jitter.height = 0, dodge.width = 0.8))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-02-13-jellybean-mistakes-2-barplots_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;There is plenty of other solutions, like violin plots, but the concept is the same. Showing more information about your data, including more descriptive values and in optimal case the actual values can be much more beneficial for you and especially for the audience to explain, understand and explore your data.&lt;/p&gt;
+&lt;p&gt;Also several other features were not discussed barplots+eroor bars can hide, for example sample size and confidence intervals.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;dont-leave-barplots&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Don’t leave barplots&lt;/h2&gt;
+&lt;p&gt;If we cannot use barplots for such kind of population data without compromising the understanding, then where we can use barplots? Don’t worry, they have their own place.&lt;/p&gt;
+&lt;p&gt;You can use barplots if you have count data, ratios or percentages. In this case, there will be no error bars.&lt;/p&gt;
+&lt;p&gt;Let’s see a survival data, where we had 5 conditions, each with a starting population size inbetween 230 and 300. Then let’s generate the survived individuals between 20-80%. Add an extra twist, and select 10-90% of the survived ones as “positive” (for disease or transformation).&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;data &amp;lt;- tibble(group = 1:5,
+               population = sample(230:300, 5)) %&amp;gt;%
+  mutate(survived = round(population * sample(20:80, 5) / 100),
+         positive = round(survived * sample(10:90, 5) / 100)) %&amp;gt;%
+  mutate(negative = survived - positive,
+         dead = population - survived) %&amp;gt;%
+  select(group, dead, negative, positive) %&amp;gt;%
+  gather(condition, number, -group)
+
+data&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 15 x 3
+##    group condition number
+##    &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;      &amp;lt;dbl&amp;gt;
+##  1     1 dead         182
+##  2     2 dead          84
+##  3     3 dead          64
+##  4     4 dead         145
+##  5     5 dead         153
+##  6     1 negative      12
+##  7     2 negative      30
+##  8     3 negative     125
+##  9     4 negative      70
+## 10     5 negative      70
+## 11     1 positive      36
+## 12     2 positive     148
+## 13     3 positive      67
+## 14     4 positive      64
+## 15     5 positive      46&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;data %&amp;gt;% 
+  ggplot(aes(x = group, y = number, fill = condition, label = number)) +
+  geom_bar(stat = &amp;quot;identity&amp;quot;, alpha = 0.8, position = &amp;quot;fill&amp;quot;) +
+  geom_text(position = position_fill(vjust = .5)) +
+  labs(title = &amp;quot;Survival rate&amp;quot;, x = &amp;quot;Group&amp;quot;, y = &amp;quot;Ratio of individuals&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-02-13-jellybean-mistakes-2-barplots_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;the-best-way-to-use-barplots&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;The best way to use barplots&lt;/h2&gt;
+&lt;p&gt;A similar problem, when we would like to plot exact values, for example heights of Simpson characters. In my opinion, this is the best usage so far. - Modified after &lt;a href=&#34;https://medium.com/human-in-a-machine-world/south-park-characters-in-ggplot2-2c5b05b19cc2&#34;&gt;this&lt;/a&gt; post.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;simpsons &amp;lt;- tribble(
+  ~member, ~part, ~height,
+  &amp;quot;Homer&amp;quot;, &amp;quot;homer_pants&amp;quot;, 51,
+  &amp;quot;Homer&amp;quot;, &amp;quot;homer_shirt&amp;quot;, 51,
+  &amp;quot;Homer&amp;quot;, &amp;quot;skin&amp;quot;, 65,
+  &amp;quot;Marge&amp;quot;, &amp;quot;marge_dress&amp;quot;, 103,
+  &amp;quot;Marge&amp;quot;, &amp;quot;skin&amp;quot;, 51, 
+  &amp;quot;Marge&amp;quot;, &amp;quot;marge_hair&amp;quot;, 103,
+  &amp;quot;Bart&amp;quot;, &amp;quot;bart_shorts&amp;quot;, 38,
+  &amp;quot;Bart&amp;quot;, &amp;quot;bart_shirt&amp;quot;, 38,
+  &amp;quot;Bart&amp;quot;, &amp;quot;skin&amp;quot;, 46,
+  &amp;quot;Lisa&amp;quot;, &amp;quot;lisa_dress&amp;quot;, 72,
+  &amp;quot;Lisa&amp;quot;, &amp;quot;skin&amp;quot;, 38,
+  &amp;quot;Maggie&amp;quot;, &amp;quot;onesie&amp;quot;, 46,
+  &amp;quot;Maggie&amp;quot;, &amp;quot;skin&amp;quot;, 18
+) %&amp;gt;%
+  mutate(member = member %&amp;gt;% fct_relevel(c(&amp;quot;Homer&amp;quot;,&amp;quot;Marge&amp;quot;,&amp;quot;Bart&amp;quot;,&amp;quot;Lisa&amp;quot;,&amp;quot;Maggie&amp;quot;)),
+         part = part %&amp;gt;% fct_relevel(c(&amp;quot;marge_hair&amp;quot;,&amp;quot;skin&amp;quot;, &amp;quot;homer_pants&amp;quot;,&amp;quot;homer_shirt&amp;quot;,  
+                     &amp;quot;marge_dress&amp;quot;,  
+                     &amp;quot;bart_shirt&amp;quot;, &amp;quot;bart_shorts&amp;quot;, 
+                     &amp;quot;lisa_dress&amp;quot;,  
+                     &amp;quot;onesie&amp;quot;)))
+
+
+ggplot(data = simpsons, mapping = aes(x=member, y=height, fill=part)) +   
+   geom_bar(stat=&amp;quot;identity&amp;quot;, show.legend = FALSE) +   
+   scale_fill_manual(values=c(&amp;quot;#107DC0&amp;quot;,&amp;quot;#FED90F&amp;quot;,&amp;quot;#FFFFFF&amp;quot;, &amp;quot;#70D1FE&amp;quot;, &amp;quot;#D6E69F&amp;quot;,  &amp;quot;#F14E28&amp;quot;,&amp;quot;#009DDC&amp;quot;, &amp;quot;#F05E2F&amp;quot;, &amp;quot;#70D1FE&amp;quot;)) +
+    theme_classic() +
+  theme(panel.background = element_rect(fill = &amp;quot;#f1919d&amp;quot;)) +
+  labs(title = &amp;quot;Heights of the Simpsons family&amp;quot;, x = &amp;quot;&amp;quot;, y = &amp;quot;Height (cm)&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-02-13-jellybean-mistakes-2-barplots_files/figure-html/simpsons-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Jellybean mistakes 1: Intro</title>
       <link>/post/jellybean-mistakes-1-intro/</link>
       <pubDate>Wed, 07 Nov 2018 00:00:00 +0000</pubDate>
@@ -36,6 +162,23 @@
 &lt;/ul&gt;
 &lt;p&gt;If you have any interesting topic to discuss or want to hear about, please write in the comments!&lt;/p&gt;
 &lt;p&gt;See you soon in the next post!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Comparing RNA-seq quantification methods</title>
+      <link>/post/comparing-rna-seq-quantification-methods/</link>
+      <pubDate>Thu, 14 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/post/comparing-rna-seq-quantification-methods/</guid>
+      <description>&lt;p&gt;I am in front of some big decisions now for my experiments, data analysis. One of them is the analysis of hundreds of RNA-seq data simultenaously, which can be a bit tricky. I would like to compare some alignment-free and alignment dependent RNA-seq counting methods to choose for my pipeline. The tools I compare here:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;kallisto&lt;/li&gt;
+&lt;li&gt;salmon&lt;/li&gt;
+&lt;li&gt;STAR-HTseq&lt;/li&gt;
+&lt;li&gt;TopHat2-Cufflinks&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The dataset I will try to work with is a published RNA-seq of the flat leaf and pitcher of &lt;strong&gt;Cephalotus follicularis&lt;/strong&gt; from &lt;a href=&#34;https://www.nature.com/articles/s41559-016-0059&#34;&gt;this publication&lt;/a&gt;.&lt;/p&gt;
 </description>
     </item>
     

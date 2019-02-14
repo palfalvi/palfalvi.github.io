@@ -119,7 +119,7 @@ data %>%
 
 ## The best way to use barplots
 
-A similar problem, when we would like to plot exact values, for example heights of Simpson characters. In my opinion, this is the best usage so far. 
+A similar problem, when we would like to plot exact values, for example heights of Simpson characters. In my opinion, this is the best usage so far. - Modified after [this](https://medium.com/human-in-a-machine-world/south-park-characters-in-ggplot2-2c5b05b19cc2) post.
 
 ```{r simpsons}
 
