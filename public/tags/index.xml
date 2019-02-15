@@ -32,7 +32,7 @@
     <item>
       <title>Bioinformatics</title>
       <link>/tags/bioinformatics/</link>
-      <pubDate>Wed, 07 Nov 2018 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 16 Feb 2019 00:00:00 +0000</pubDate>
       
       <guid>/tags/bioinformatics/</guid>
       <description></description>
@@ -93,9 +93,18 @@
     </item>
     
     <item>
+      <title>Pca</title>
+      <link>/tags/pca/</link>
+      <pubDate>Sat, 16 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/pca/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Plot</title>
       <link>/tags/plot/</link>
-      <pubDate>Wed, 13 Feb 2019 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 16 Feb 2019 00:00:00 +0000</pubDate>
       
       <guid>/tags/plot/</guid>
       <description></description>
@@ -104,9 +113,18 @@
     <item>
       <title>R</title>
       <link>/tags/r/</link>
-      <pubDate>Wed, 13 Feb 2019 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 16 Feb 2019 00:00:00 +0000</pubDate>
       
       <guid>/tags/r/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Regression</title>
+      <link>/tags/regression/</link>
+      <pubDate>Sat, 16 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/regression/</guid>
       <description></description>
     </item>
     
@@ -125,24 +143,6 @@
       <pubDate>Wed, 01 Mar 2017 00:00:00 +0000</pubDate>
       
       <guid>/tags/rnaseq/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Rstudio</title>
-      <link>/tags/rstudio/</link>
-      <pubDate>Wed, 13 Feb 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/rstudio/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Rvest</title>
-      <link>/tags/rvest/</link>
-      <pubDate>Tue, 08 Aug 2017 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/rvest/</guid>
       <description></description>
     </item>
     

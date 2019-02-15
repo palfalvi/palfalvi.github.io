@@ -1,5 +1,5 @@
 ---
-title: jellybean mistakes 2 barplots
+title: 'Jellybean mistakes 2: Barplots'
 author: Gergo Palfalvi
 date: '2019-02-13'
 categories:

@@ -1,5 +1,5 @@
 ---
-title: jellybean mistakes 2 barplots
+title: 'Jellybean mistakes 2: Barplots'
 author: Gergo Palfalvi
 date: '2019-02-13'
 categories:
@@ -80,21 +80,21 @@ data</code></pre>
 <pre><code>## # A tibble: 15 x 3
 ##    group condition number
 ##    &lt;int&gt; &lt;chr&gt;      &lt;dbl&gt;
-##  1     1 dead         182
-##  2     2 dead          84
-##  3     3 dead          64
-##  4     4 dead         145
-##  5     5 dead         153
-##  6     1 negative      12
-##  7     2 negative      30
-##  8     3 negative     125
-##  9     4 negative      70
-## 10     5 negative      70
-## 11     1 positive      36
-## 12     2 positive     148
-## 13     3 positive      67
-## 14     4 positive      64
-## 15     5 positive      46</code></pre>
+##  1     1 dead         118
+##  2     2 dead         129
+##  3     3 dead         119
+##  4     4 dead          96
+##  5     5 dead          89
+##  6     1 negative      63
+##  7     2 negative      87
+##  8     3 negative      17
+##  9     4 negative     106
+## 10     5 negative      47
+## 11     1 positive      70
+## 12     2 positive      36
+## 13     3 positive     141
+## 14     4 positive      57
+## 15     5 positive     127</code></pre>
 <pre class="r"><code>data %&gt;% 
   ggplot(aes(x = group, y = number, fill = condition, label = number)) +
   geom_bar(stat = &quot;identity&quot;, alpha = 0.8, position = &quot;fill&quot;) +

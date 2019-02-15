@@ -7,8 +7,253 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2017 Gergo Palfalvi</copyright>
-    <lastBuildDate>Wed, 07 Nov 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 16 Feb 2019 00:00:00 +0000</lastBuildDate>
     <atom:link href="/tags/bioinformatics/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Jellybean mistakes 3: Model simmetries</title>
+      <link>/post/jellybean-mistakes-3-model-simmetries/</link>
+      <pubDate>Sat, 16 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/jellybean-mistakes-3-model-simmetries/</guid>
+      <description>&lt;p&gt;One of the most often mistaken and forgotten problem in basic statistics, when they assume that the fitted regression model is symmetric, aka. does not matter if you fit &lt;code&gt;x~y&lt;/code&gt; or &lt;code&gt;y~x&lt;/code&gt;. Well, based purely on the method and definition of linear model fitting, this is a very wrong assumption and I think one of the main cause for this is that linear models are always interpreted together with correlation values where this causational direction is not present.&lt;/p&gt;
+&lt;div id=&#34;what-is-a-linear-regression-model&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;What is a linear (regression) model?&lt;/h2&gt;
+&lt;p&gt;Linear regression model is a very simple thing. It all starts with the model function: $ y = + x $, which is a line with &lt;span class=&#34;math inline&#34;&gt;\(\beta\)&lt;/span&gt; slope and an intersection on the y axis at &lt;span class=&#34;math inline&#34;&gt;\(\alpha\)&lt;/span&gt;. Since most of the real world observations are not laying on a perfect line due to some error (unobserved variables, stochastic effects etc.), we extend this equation for each observation pair &lt;span class=&#34;math inline&#34;&gt;\({x_i, y_i}\)&lt;/span&gt; as &lt;span class=&#34;math inline&#34;&gt;\(y_i = \alpha + \beta x_i + \epsilon_i\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;And here we are, we have the regression model. The goal is to find estimates for &lt;span class=&#34;math inline&#34;&gt;\(\alpha\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(\beta\)&lt;/span&gt; as &lt;span class=&#34;math inline&#34;&gt;\(\hat{\alpha}\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(\hat{\beta}\)&lt;/span&gt; based on our measured data pairs.&lt;/p&gt;
+&lt;p&gt;The solution for this problem is to use the &lt;strong&gt;ordinary least squares&lt;/strong&gt; method. You do not need to know how to calculate this, just understand what is going on. We would like to find &lt;span class=&#34;math inline&#34;&gt;\(\hat{\alpha}\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(\hat{\beta}\)&lt;/span&gt; where the sum of the squared error terms (&lt;span class=&#34;math inline&#34;&gt;\(\sum\hat{\epsilon_i}\)&lt;/span&gt;) is minimal. In simpler world, we would like to find a model, where the error is minimal. Sounds reasonable and easy, but let’s see a visual representation.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tibble(s = seq(-5, 5, 0.2)) %&amp;gt;%
+  mutate(order = seq_along(s),
+         x = list(anscombe$x1),
+         y = list(anscombe$y1),
+         i = mean(anscombe$y1) - s*mean(anscombe$x1)) %&amp;gt;%
+  unnest() %&amp;gt;%
+  mutate(pred_y = s*x+i) %&amp;gt;%
+  group_by(order) %&amp;gt;%
+  mutate(se = sum((y-pred_y)^2)) %&amp;gt;%
+  ggplot() +
+  geom_smooth(aes(x, y), method = &amp;quot;lm&amp;quot;, se = FALSE, color = &amp;quot;lightblue&amp;quot;, alpha = 0.6) + 
+  geom_abline(aes(slope = s, intercept = i)) +
+  geom_segment(aes(x = x, y = y, xend = x, yend = pred_y, color = se)) +
+  geom_point(aes(x, y)) +
+  geom_point(aes(mean(x), mean(y)), color = &amp;quot;red&amp;quot;) +
+  coord_cartesian(xlim = c(-10, 30), ylim = c(-10, 30)) +
+  labs(&amp;quot;Ordinary least square regression as x ~ y&amp;quot;) +
+  transition_states(
+    order,
+    transition_length = 2,
+    state_length = 1
+  ) &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-02-16-jellybean-mistakes-3-model-simmetries_files/figure-html/unnamed-chunk-1-1.gif&#34; /&gt;&lt;!-- --&gt;&lt;/p&gt;
+&lt;p&gt;You can see the actual fitted line fixed and the “searching” line with all the errors connected to the datapoints. You can also see, that those lines (residuals) are moving only in the y axis, but fixed in the x. It means we minimize the error only in the y axis direction, which makes sense, since we are predicting y based on x. The residual is the informationbit x cannot explain about y.&lt;/p&gt;
+&lt;div id=&#34;but-what-if-we-turn-the-table&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;But what if we turn the table?&lt;/h3&gt;
+&lt;p&gt;What if we want to predict x based on y? Then we just need to change the equation as &lt;span class=&#34;math inline&#34;&gt;\(x = \alpha + \beta y\)&lt;/span&gt; which means we are working on minimizing the squeared residuals on the horizontal direction.&lt;/p&gt;
+&lt;p&gt;Here I simply changed the x and y data and finally used a &lt;code&gt;coord_flip()&lt;/code&gt; to bring it back to the original state.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tibble(s = seq(-5, 5, 0.2)) %&amp;gt;%
+  mutate(order = seq_along(s),
+         x = list(anscombe$y1),
+         y = list(anscombe$x1),
+         i = mean(anscombe$x1) - s*mean(anscombe$y1)) %&amp;gt;%
+  unnest() %&amp;gt;%
+  mutate(pred_y = s*x+i) %&amp;gt;%
+  group_by(order) %&amp;gt;%
+  mutate(se = sum((y-pred_y)^2)) %&amp;gt;%
+  ggplot() +
+  geom_smooth(aes(x, y), method = &amp;quot;lm&amp;quot;, se = FALSE, color = &amp;quot;lightblue&amp;quot;, alpha = 0.6) + 
+  geom_abline(aes(slope = s, intercept = i)) +
+  geom_segment(aes(x = x, y = y, xend = x, yend = pred_y, color = se)) +
+  geom_point(aes(x, y)) +
+  geom_point(aes(mean(x), mean(y)), color = &amp;quot;red&amp;quot;) +
+  coord_flip(xlim = c(-10, 30), ylim = c(-10, 30)) +
+  labs(&amp;quot;Ordinary least square regression as y ~ x&amp;quot;) +
+  labs(x = &amp;quot;y&amp;quot;, y = &amp;quot;x&amp;quot;) +
+  transition_states(
+    order,
+    transition_length = 2,
+    state_length = 1
+  ) &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-02-16-jellybean-mistakes-3-model-simmetries_files/figure-html/unnamed-chunk-2-1.gif&#34; /&gt;&lt;!-- --&gt;&lt;/p&gt;
+&lt;p&gt;You can easily see how many things changed:&lt;/p&gt;
+&lt;p&gt;1, y became the independent variable.
+2, x became the dependent one.
+3, Regression line is different (actually mirrored).
+4, Residuals are represented as vertical lines.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;which-one-is-correct&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Which one is correct?&lt;/h2&gt;
+&lt;p&gt;The correct choice for independent and dependent variable is based on your experimental setup. When you fix a condition, like temperature, soil, light, chemical concentration, that will be your predictor. Then you will measure something (~phenotype, reaction), which will be dependent on the predictor.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;a-symmetric-solution---orthogonal-regression&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;A symmetric solution - orthogonal regression&lt;/h2&gt;
+&lt;p&gt;There are cases when one would like to have a simmetryc solution for the problem, where non of the variables are strictly dependent on the other. Just think about that when you would like to plot two genes in several conditions and predict their linear (or logarithmic) relationship. Without further information about the gene regulatory hierarchy, there is no way to place one above the other, and also we cannot fix any of the genes’ expression to measure the other one. Which one you would choose as a predictor? I would choose neither and try to fit an orthogonal regression.&lt;/p&gt;
+&lt;p&gt;Orthogonal sounds very “mathematical”, but actually it is the same fitted line as the first eigenvector of the system, which would be the first principal component axis in a PCA. A lot of things in a very different names, but basically they mean the same. In fact, to calculate the line, there is no easier way in R, then calculate the PCA and from the rotation and center informations calculate the slope and the intercept terms.&lt;/p&gt;
+&lt;p&gt;In this case we could reach with the &lt;strong&gt;total least squares&lt;/strong&gt; method, where we minimize the summed squared distances in perpendicular between the data points and the fitted line (minimizing total variance). Maybe it is a bit difficult to understand, but here is the visual representation to help you:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;pca &amp;lt;- prcomp(~x1+y1, anscombe)
+slp &amp;lt;- with(pca, rotation[2,1] / rotation[1,1])
+int &amp;lt;- with(pca, center[2] - slp*center[1])
+
+tibble(s = seq(-5, 5, 0.2)) %&amp;gt;%
+  mutate(order = seq_along(s),
+         x = list(anscombe$x1),
+         y = list(anscombe$y1),
+         i = mean(anscombe$y1) - s*mean(anscombe$x1)) %&amp;gt;%
+  unnest() %&amp;gt;%
+  mutate(s2 = -1/s,
+         i2 = y-s2*x,
+         pred_x = if_else(s == 0, x, (i2-i)/(s-s2) ),
+         pred_y = s*pred_x + i) %&amp;gt;%
+  group_by(order) %&amp;gt;%
+  mutate(se = sum((pred_x-x)^2 + (pred_y-y)^2)) %&amp;gt;%
+  ggplot() +
+  geom_abline(slope = slp, intercept = int, color = &amp;quot;lightblue&amp;quot;, alpha = 0.6) +
+  geom_abline(aes(slope = s, intercept = i, color = se)) +
+  geom_segment(aes(x = x, y = y, xend = pred_x, yend = pred_y, color = se)) +
+  geom_point(aes(x, y)) +
+  geom_point(aes(mean(x), mean(y)), color = &amp;quot;red&amp;quot;) +
+  labs(&amp;quot;Orthogonal regression for (x,y)&amp;quot;) +
+  coord_cartesian(xlim = c(-10, 30), ylim = c(-10, 30)) +
+  transition_states(
+    order,
+    transition_length = 1,
+    state_length = 1
+  ) &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-02-16-jellybean-mistakes-3-model-simmetries_files/figure-html/unnamed-chunk-3-1.gif&#34; /&gt;&lt;!-- --&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;lets-see-all-of-them-at-once&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Let’s see all of them at once!&lt;/h2&gt;
+&lt;p&gt;To make a stronger convincing evidence, let’s see all the 3 regression lines in one graph.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;pca &amp;lt;- prcomp(~x1+y1, anscombe)
+slp &amp;lt;- with(pca, rotation[2,1] / rotation[1,1])
+int &amp;lt;- with(pca, center[2] - slp*center[1])
+lmxy &amp;lt;- lm(y1 ~ x1, anscombe)
+lmyx &amp;lt;- lm(x1 ~ y1, anscombe)
+
+ggplot(anscombe) +
+  geom_point(aes(x1,y1)) + 
+  geom_abline(intercept = int, slope = slp, color = &amp;quot;limegreen&amp;quot;) +
+  geom_abline(intercept = lmxy$coefficients[1], slope = lmxy$coefficients[2], color = &amp;quot;hotpink&amp;quot;) +
+  geom_abline(intercept = - lmyx$coefficients[1]/lmyx$coefficients[2], slope = 1/lmyx$coefficients[2], color = &amp;quot;dodgerblue&amp;quot;) +
+  xlim(c(0, 20)) + ylim(c(0, 20)) +
+  labs(title = &amp;quot;Linear regression types&amp;quot;, 
+       x = &amp;quot;x&amp;quot;, 
+       y = &amp;quot;y&amp;quot;, 
+       caption = &amp;quot;Blue: y~x\nPink: x~y\nGreen: orthogonal&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-02-16-jellybean-mistakes-3-model-simmetries_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;so-where-is-correlation&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;So where is correlation?&lt;/h2&gt;
+&lt;p&gt;Actually, there is no direct relation between the correlation and the regression. Indeed, correlation is insensitive of the directional relation of the data, it is a measure of the strengh of the relationship. But more about this in an other post.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;session-info&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Session info&lt;/h2&gt;
+&lt;p&gt;To produce the graphs, I used the &lt;code&gt;tidyverse&lt;/code&gt; and the &lt;code&gt;gganimate&lt;/code&gt; packages and the &lt;code&gt;anscombe&lt;/code&gt; dataset (only x1 nad y1). My plotting theme is set as &lt;code&gt;ggthemr::ggthemr(&amp;quot;fresh&amp;quot;)&lt;/code&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;devtools::session_info()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## ─ Session info ──────────────────────────────────────────────────────────
+##  setting  value                       
+##  version  R version 3.5.2 (2018-12-20)
+##  os       macOS Mojave 10.14.1        
+##  system   x86_64, darwin15.6.0        
+##  ui       X11                         
+##  language (EN)                        
+##  collate  en_US.UTF-8                 
+##  ctype    en_US.UTF-8                 
+##  tz       Asia/Tokyo                  
+##  date     2019-02-15                  
+## 
+## ─ Packages ──────────────────────────────────────────────────────────────
+##  package     * version date       lib source                          
+##  assertthat    0.2.0   2017-04-11 [1] CRAN (R 3.5.0)                  
+##  backports     1.1.3   2018-12-14 [1] CRAN (R 3.5.0)                  
+##  bindr         0.1.1   2018-03-13 [1] CRAN (R 3.5.0)                  
+##  bindrcpp    * 0.2.2   2018-03-29 [1] CRAN (R 3.5.0)                  
+##  blogdown      0.10    2019-01-09 [1] CRAN (R 3.5.2)                  
+##  bookdown      0.9     2018-12-21 [1] CRAN (R 3.5.0)                  
+##  broom         0.5.1   2018-12-05 [1] CRAN (R 3.5.0)                  
+##  callr         3.1.1   2018-12-21 [1] CRAN (R 3.5.0)                  
+##  cellranger    1.1.0   2016-07-27 [1] CRAN (R 3.5.0)                  
+##  class         7.3-14  2015-08-30 [1] CRAN (R 3.5.2)                  
+##  classInt      0.3-1   2018-12-18 [1] CRAN (R 3.5.0)                  
+##  cli           1.0.1   2018-09-25 [1] CRAN (R 3.5.0)                  
+##  colorspace    1.4-0   2019-01-13 [1] CRAN (R 3.5.2)                  
+##  crayon        1.3.4   2017-09-16 [1] CRAN (R 3.5.0)                  
+##  DBI           1.0.0   2018-05-02 [1] CRAN (R 3.5.0)                  
+##  desc          1.2.0   2018-05-01 [1] CRAN (R 3.5.0)                  
+##  devtools      2.0.1   2018-10-26 [1] CRAN (R 3.5.2)                  
+##  digest        0.6.18  2018-10-10 [1] CRAN (R 3.5.0)                  
+##  dplyr       * 0.7.8   2018-11-10 [1] CRAN (R 3.5.0)                  
+##  e1071         1.7-0.1 2019-01-21 [1] CRAN (R 3.5.2)                  
+##  evaluate      0.13    2019-02-12 [1] CRAN (R 3.5.2)                  
+##  farver        1.1.0   2018-11-20 [1] CRAN (R 3.5.0)                  
+##  forcats     * 0.3.0   2018-02-19 [1] CRAN (R 3.5.0)                  
+##  fs            1.2.6   2018-08-23 [1] CRAN (R 3.5.0)                  
+##  generics      0.0.2   2018-11-29 [1] CRAN (R 3.5.0)                  
+##  gganimate   * 1.0.0   2019-01-02 [1] CRAN (R 3.5.2)                  
+##  ggplot2     * 3.1.0   2018-10-25 [1] CRAN (R 3.5.0)                  
+##  ggthemr     * 1.1.0   2019-02-14 [1] Github (cttobin/ggthemr@0a31bb5)
+##  gifski        0.8.6   2018-09-28 [1] CRAN (R 3.5.0)                  
+##  glue          1.3.0   2018-07-17 [1] CRAN (R 3.5.0)                  
+##  gtable        0.2.0   2016-02-26 [1] CRAN (R 3.5.0)                  
+##  haven         2.0.0   2018-11-22 [1] CRAN (R 3.5.0)                  
+##  hms           0.4.2   2018-03-10 [1] CRAN (R 3.5.0)                  
+##  htmltools     0.3.6   2017-04-28 [1] CRAN (R 3.5.0)                  
+##  httr          1.4.0   2018-12-11 [1] CRAN (R 3.5.0)                  
+##  jsonlite      1.6     2018-12-07 [1] CRAN (R 3.5.0)                  
+##  knitr         1.21    2018-12-10 [1] CRAN (R 3.5.2)                  
+##  labeling      0.3     2014-08-23 [1] CRAN (R 3.5.0)                  
+##  lattice       0.20-38 2018-11-04 [1] CRAN (R 3.5.2)                  
+##  lazyeval      0.2.1   2017-10-29 [1] CRAN (R 3.5.0)                  
+##  lpSolve       5.6.13  2015-09-19 [1] CRAN (R 3.5.0)                  
+##  lubridate     1.7.4   2018-04-11 [1] CRAN (R 3.5.0)                  
+##  magrittr      1.5     2014-11-22 [1] CRAN (R 3.5.0)                  
+##  memoise       1.1.0   2017-04-21 [1] CRAN (R 3.5.0)                  
+##  modelr        0.1.3   2019-02-05 [1] CRAN (R 3.5.2)                  
+##  munsell       0.5.0   2018-06-12 [1] CRAN (R 3.5.0)                  
+##  nlme          3.1-137 2018-04-07 [1] CRAN (R 3.5.2)                  
+##  pillar        1.3.1   2018-12-15 [1] CRAN (R 3.5.0)                  
+##  pkgbuild      1.0.2   2018-10-16 [1] CRAN (R 3.5.0)                  
+##  pkgconfig     2.0.2   2018-08-16 [1] CRAN (R 3.5.0)                  
+##  pkgload       1.0.2   2018-10-29 [1] CRAN (R 3.5.0)                  
+##  plyr          1.8.4   2016-06-08 [1] CRAN (R 3.5.0)                  
+##  png           0.1-7   2013-12-03 [1] CRAN (R 3.5.0)                  
+##  prettyunits   1.0.2   2015-07-13 [1] CRAN (R 3.5.0)                  
+##  processx      3.2.1   2018-12-05 [1] CRAN (R 3.5.0)                  
+##  progress      1.2.0   2018-06-14 [1] CRAN (R 3.5.0)                  
+##  ps            1.3.0   2018-12-21 [1] CRAN (R 3.5.0)                  
+##  purrr       * 0.3.0   2019-01-27 [1] CRAN (R 3.5.2)                  
+##  R6            2.3.0   2018-10-04 [1] CRAN (R 3.5.0)                  
+##  Rcpp          1.0.0   2018-11-07 [1] CRAN (R 3.5.0)                  
+##  readr       * 1.3.1   2018-12-21 [1] CRAN (R 3.5.0)                  
+##  readxl        1.2.0   2018-12-19 [1] CRAN (R 3.5.0)                  
+##  remotes       2.0.2   2018-10-30 [1] CRAN (R 3.5.0)                  
+##  rlang         0.3.1   2019-01-08 [1] CRAN (R 3.5.2)                  
+##  rmarkdown     1.11    2018-12-08 [1] CRAN (R 3.5.0)                  
+##  rprojroot     1.3-2   2018-01-03 [1] CRAN (R 3.5.0)                  
+##  rstudioapi    0.9.0   2019-01-09 [1] CRAN (R 3.5.2)                  
+##  rvest         0.3.2   2016-06-17 [1] CRAN (R 3.5.0)                  
+##  scales        1.0.0   2018-08-09 [1] CRAN (R 3.5.0)                  
+##  sessioninfo   1.1.1   2018-11-05 [1] CRAN (R 3.5.0)                  
+##  sf            0.7-2   2018-12-20 [1] CRAN (R 3.5.0)                  
+##  stringi       1.3.1   2019-02-13 [1] CRAN (R 3.5.2)                  
+##  stringr     * 1.4.0   2019-02-10 [1] CRAN (R 3.5.2)                  
+##  tibble      * 2.0.1   2019-01-12 [1] CRAN (R 3.5.2)                  
+##  tidyr       * 0.8.2   2018-10-28 [1] CRAN (R 3.5.0)                  
+##  tidyselect    0.2.5   2018-10-11 [1] CRAN (R 3.5.0)                  
+##  tidyverse   * 1.2.1   2017-11-14 [1] CRAN (R 3.5.0)                  
+##  transformr    0.1.1   2018-12-09 [1] CRAN (R 3.5.0)                  
+##  tweenr        1.0.1   2018-12-14 [1] CRAN (R 3.5.0)                  
+##  units         0.6-2   2018-12-05 [1] CRAN (R 3.5.0)                  
+##  usethis       1.4.0   2018-08-14 [1] CRAN (R 3.5.0)                  
+##  withr         2.1.2   2018-03-15 [1] CRAN (R 3.5.0)                  
+##  xfun          0.4     2018-10-23 [1] CRAN (R 3.5.0)                  
+##  xml2          1.2.0   2018-01-24 [1] CRAN (R 3.5.0)                  
+##  yaml          2.2.0   2018-07-25 [1] CRAN (R 3.5.0)                  
+## 
+## [1] /Library/Frameworks/R.framework/Versions/3.5/Resources/library&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Jellybean mistakes 1: Intro</title>
